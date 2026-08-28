@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 import { navItems } from "../lib/data";
 
 const Navbar: React.FC = () => {
@@ -43,24 +44,24 @@ const Navbar: React.FC = () => {
           {/* Desktop Nav */}
           <div className="hidden lg:block flex space-x-8 items-center bg-white/5 backdrop-blur-md border border-white/10 px-6 py-2 rounded-full">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className="text-sm font-medium text-slate-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(251,191,36,0.8)] transition-all"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="hidden lg:block">
-            <a
+            <Link
               href="/#contact"
               className="relative group overflow-hidden bg-white/5 backdrop-blur-md border border-orange-500/30 hover:border-orange-400 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-[0_0_15px_rgba(249,115,22,0.15)] hover:shadow-[0_0_25px_rgba(249,115,22,0.5)] flex items-center"
             >
               <span className="relative z-10">Get in Touch</span>
               <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-orange-600 to-rose-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -83,22 +84,22 @@ const Navbar: React.FC = () => {
       {mobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-[#0B1221]/95 backdrop-blur-2xl border-t border-white/10 py-4 px-4 flex flex-col space-y-4 shadow-2xl">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               onClick={() => setMobileMenuOpen(false)}
               className="text-slate-300 font-medium hover:text-white hover:pl-2 hover:bg-white/5 text-lg py-3 px-4 rounded-xl transition-all border border-transparent hover:border-white/10"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
-          <a
+          <Link
             href="/#contact"
             onClick={() => setMobileMenuOpen(false)}
             className="bg-gradient-to-r from-orange-600 to-rose-500 text-center text-white px-5 py-3 rounded-xl font-semibold mt-4 shadow-[0_0_20px_rgba(249,115,22,0.4)]"
           >
             Get in Touch
-          </a>
+          </Link>
         </div>
       )}
     </nav>

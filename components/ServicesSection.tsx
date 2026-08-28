@@ -1,5 +1,6 @@
 import React from "react";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 import BackgroundLights from "./BackgroundLights";
 import { services } from "../lib/data";
 
@@ -42,13 +43,13 @@ const ServicesSection: React.FC = () => {
               <p className="text-slate-400 leading-relaxed mb-6 font-light relative z-10 group-hover:text-slate-200 transition-colors">
                 {service.description}
               </p>
-              <a
+              <Link
                 href="/#contact"
                 className="inline-flex items-center text-orange-400 font-medium hover:text-rose-400 transition-colors relative z-10"
               >
                 Learn more{" "}
                 <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </div>
           ))}
         </div>

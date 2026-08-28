@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import BackgroundLights from "./BackgroundLights";
 
 const AboutSection: React.FC = () => {
@@ -74,11 +75,12 @@ const AboutSection: React.FC = () => {
               className="aspect-square bg-gradient-to-tr from-orange-600/40 via-rose-500/20 to-transparent rounded-full blur-[90px] absolute inset-0 -z-10 animate-pulse"
               style={{ animationDuration: "7s" }}
             ></div>
-            <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-4 shadow-[0_0_50px_rgba(0,0,0,0.4)]">
-              <img
+            <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-4 shadow-[0_0_50px_rgba(0,0,0,0.4)] relative aspect-[4/3] overflow-hidden">
+              <Image
                 src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
                 alt="TechNic Infrastructure"
-                className="rounded-[2rem] w-full h-auto object-cover opacity-90 filter contrast-125"
+                fill
+                className="rounded-[2rem] object-cover opacity-90 filter contrast-125"
               />
               {/* Overlay to blend image with the new color scheme */}
               <div className="absolute inset-0 bg-[#0B1221]/30 rounded-[2.5rem] mix-blend-overlay"></div>

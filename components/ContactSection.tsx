@@ -1,9 +1,53 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Globe } from "lucide-react";
 import BackgroundLights from "./BackgroundLights";
 
 const ContactSection: React.FC = () => {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === 'submitting') return;
+    
+    setStatus('submitting');
+    setMessage('');
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      interest: formData.get('interest'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setStatus('success');
+        setMessage(result.message || 'Message sent successfully. We will be in touch shortly.');
+        (e.target as HTMLFormElement).reset();
+      } else {
+        setStatus('error');
+        setMessage(result.error || 'Failed to send message.');
+      }
+    } catch (err) {
+      console.error('Contact error:', err);
+      setStatus('error');
+      setMessage('A network error occurred. Please try again.');
+    }
+  };
+
   return (
     <section
       id="contact"
@@ -75,7 +119,30 @@ const ContactSection: React.FC = () => {
             <h3 className="text-2xl font-bold text-white mb-8">
               Send a secure message
             </h3>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            
+            {status === 'success' ? (
+              <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-6 rounded-2xl flex flex-col items-center justify-center text-center space-y-4">
+                <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-bold text-white">Message Transmitted</h4>
+                <p>{message}</p>
+                <button 
+                  onClick={() => setStatus('idle')}
+                  className="mt-4 px-6 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+                >
+                  Send Another Message
+                </button>
+              </div>
+            ) : (
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {status === 'error' && (
+                <div className="bg-rose-500/10 border border-rose-500/30 text-rose-400 px-4 py-3 rounded-xl text-sm">
+                  {message}
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label
@@ -87,6 +154,8 @@ const ContactSection: React.FC = () => {
                   <input
                     type="text"
                     id="firstName"
+                    name="firstName"
+                    required
                     className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all backdrop-blur-md shadow-inner"
                     placeholder="John"
                   />
@@ -101,6 +170,8 @@ const ContactSection: React.FC = () => {
                   <input
                     type="text"
                     id="lastName"
+                    name="lastName"
+                    required
                     className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all backdrop-blur-md shadow-inner"
                     placeholder="Doe"
                   />
@@ -117,8 +188,26 @@ const ContactSection: React.FC = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
+                  required
                   className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all backdrop-blur-md shadow-inner"
                   placeholder="john@company.com"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-slate-300 mb-2"
+                >
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all backdrop-blur-md shadow-inner"
+                  placeholder="+1 (555) 000-0000"
                 />
               </div>
 
@@ -131,16 +220,17 @@ const ContactSection: React.FC = () => {
                 </label>
                 <select
                   id="interest"
+                  name="interest"
                   className="w-full px-5 py-4 rounded-2xl bg-[#0B1221] border border-white/10 text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all shadow-inner appearance-none"
                 >
-                  <option>Service: Custom Website/App</option>
-                  <option>Service: DevOps & Cloud</option>
-                  <option>Product: NicFlow AI</option>
-                  <option>Product: TechGuard Sentinel</option>
-                  <option>Product: DataStream Nexus</option>
-                  <option>Product: NicOps Deployer</option>
-                  <option>Product: SiteCrafter</option>
-                  <option>Other Inquiry</option>
+                  <option value="Service: Custom Website/App">Service: Custom Website/App</option>
+                  <option value="Service: DevOps & Cloud">Service: DevOps & Cloud</option>
+                  <option value="Product: NicFlow AI">Product: NicFlow AI</option>
+                  <option value="Product: TechGuard Sentinel">Product: TechGuard Sentinel</option>
+                  <option value="Product: DataStream Nexus">Product: DataStream Nexus</option>
+                  <option value="Product: NicOps Deployer">Product: NicOps Deployer</option>
+                  <option value="Product: SiteCrafter">Product: SiteCrafter</option>
+                  <option value="Other Inquiry">Other Inquiry</option>
                 </select>
               </div>
 
@@ -153,6 +243,8 @@ const ContactSection: React.FC = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
+                  required
                   rows={4}
                   className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all resize-none backdrop-blur-md shadow-inner"
                   placeholder="Tell us about your objectives..."
@@ -161,12 +253,16 @@ const ContactSection: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full relative group overflow-hidden bg-white/10 backdrop-blur-xl border border-white/20 text-white font-bold py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] mt-4"
+                disabled={status === 'submitting'}
+                className="w-full relative group overflow-hidden bg-white/10 backdrop-blur-xl border border-white/20 text-white font-bold py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span className="relative z-10 text-lg">Transmit Message</span>
+                <span className="relative z-10 text-lg">
+                  {status === 'submitting' ? 'Transmitting...' : 'Transmit Message'}
+                </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-rose-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
             </form>
+            )}
           </div>
         </div>
       </div>

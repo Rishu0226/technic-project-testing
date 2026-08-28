@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
+import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import BackgroundLights from "../../components/BackgroundLights";
@@ -72,10 +73,11 @@ export default function Blog() {
                 
                 <div className="h-56 overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B1221] to-transparent opacity-60 z-10"></div>
-                  <img 
+                  <Image 
                     src={post.image} 
                     alt={post.title} 
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                    fill
+                    className="object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
                   />
                   <div className="absolute top-4 left-4 z-20">
                     <span className="inline-flex items-center px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-xs font-semibold text-orange-400">

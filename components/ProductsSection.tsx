@@ -1,5 +1,6 @@
 import React from "react";
 import { Sparkles, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
 import BackgroundLights from "./BackgroundLights";
 import { products } from "../lib/data";
 
@@ -20,18 +21,18 @@ const ProductsSection: React.FC = () => {
               Proprietary Platforms
             </h3>
             <p className="text-lg text-slate-400 font-light">
-              We don't just build for others; we build for the future. Discover
+              We don&apos;t just build for others; we build for the future. Discover
               our 5 proprietary products designed to automate, secure, and
               accelerate enterprise operations.
             </p>
           </div>
           <div className="mt-8 lg:mt-0">
-            <a
+            <Link
               href="/#contact"
               className="hidden lg:inline-flex items-center justify-center px-6 py-3 border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.05)] text-base font-medium rounded-full text-white bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-orange-500/50 hover:shadow-[0_0_20px_rgba(249,115,22,0.2)] transition-all"
             >
               Request Platform Demo
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -108,12 +109,12 @@ const ProductsSection: React.FC = () => {
                   ))}
                 </ul>
 
-                <a
+                <Link
                   href="/#contact"
                   className="inline-flex items-center text-white bg-white/5 backdrop-blur-md border border-white/20 hover:border-orange-500/60 px-7 py-3.5 rounded-full font-semibold transition-all duration-300 hover:shadow-[0_0_25px_rgba(249,115,22,0.3)] hover:bg-white/10"
                 >
                   Explore {product.name}
-                </a>
+                </Link>
               </div>
             </div>
           ))}
