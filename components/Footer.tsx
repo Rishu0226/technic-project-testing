@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center mb-6">
               <Image src="/Assest/logo.png" alt="Technic Technologies" width={40} height={40} className="h-20 w-auto mr-3" />
-              <span className="font-bold text-2xl text-white font-heading">Technic Technologies</span>
+              <span className="font-bold text-2xl text-white font-heading">Technic <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-rose-400 to-amber-400">Technologies</span></span>
             </div>
             <p className="text-sm mb-6 font-light leading-relaxed">
               We build technology products and engineer digital solutions that help businesses scale.

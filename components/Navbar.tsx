@@ -28,9 +28,19 @@ const Navbar: React.FC = () => {
             className="flex-shrink-0 flex items-center cursor-pointer group"
             onClick={() => window.scrollTo(0, 0)}
           >
-            <Image src="/Assest/logo.png" alt="Technic Technologies" width={180} height={40} className="h-16 w-auto" priority />
-          </div>
 
+
+            <div className="flex items-center space-x-2">
+              <Image src="/Assest/logo.png" alt="Technic Technologies" width={180} height={40} className="h-16 w-auto" priority />
+
+              <span className="font-bold text-2xl tracking-tight text-white">
+                TechNic{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-rose-400 to-amber-400">
+                  Technologies
+                </span>
+              </span>
+            </div>
+          </div>
           {/* Desktop Nav */}
           <div className="hidden lg:block flex space-x-8 items-center bg-white/5 backdrop-blur-md border border-white/10 px-6 py-2 rounded-full">
             {navItems.map((item) => (
@@ -61,9 +71,9 @@ const Navbar: React.FC = () => {
               className="text-white p-2 bg-white/10 rounded-lg backdrop-blur-md border border-white/10 hover:bg-white/20 transition-colors"
             >
               {mobileMenuOpen ? (
-               <X className="w-6 h-6" />
+                <X className="w-6 h-6" />
               ) : (
-               <Menu className="w-6 h-6" />
+                <Menu className="w-6 h-6" />
               )}
             </button>
           </div>
