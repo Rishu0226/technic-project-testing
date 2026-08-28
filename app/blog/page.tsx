@@ -15,33 +15,33 @@ export const metadata: Metadata = {
 const blogPosts = [
   {
     id: 1,
-    title: "The Future of AI in Enterprise Resource Planning",
-    excerpt: "How generative AI is moving beyond chatbots to orchestrate entire supply chains autonomously.",
+    title: "The Future of Cloud DevOps Automation",
+    excerpt: "How generative AI is moving beyond chatbots to orchestrate entire deployments autonomously.",
     date: "July 10, 2026",
     author: "Elena Rodriguez",
     readTime: "8 min read",
-    category: "Artificial Intelligence",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+    category: "DevOps",
+    image: "/blog-technology-trends.webp",
   },
   {
     id: 2,
-    title: "Zero-Trust Architecture: A 2026 Perspective",
+    title: "Zero Trust Architecture in Modern Enterprise Environments",
     excerpt: "Why traditional perimeter defense is obsolete and how self-healing networks are taking over.",
     date: "June 28, 2026",
     author: "Marcus Chen",
     readTime: "6 min read",
     category: "Cybersecurity",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
+    image: "/blog-ai-innovation.webp",
   },
   {
     id: 3,
-    title: "Edge Computing vs Cloud: Finding the Balance",
-    excerpt: "Optimizing your infrastructure by processing data closer to the source without losing global sync.",
+    title: "Why Modern Software Architecture Matters for High-Performance Applications",
+    excerpt: "Optimizing your infrastructure by processing data closer to the source and building scalable foundations.",
     date: "June 15, 2026",
     author: "Sarah Jenkins",
     readTime: "10 min read",
-    category: "Cloud Infrastructure",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+    category: "Software Engineering",
+    image: "/blog-software-engineering.webp",
   }
 ];
 

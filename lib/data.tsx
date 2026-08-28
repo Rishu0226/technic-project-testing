@@ -36,10 +36,11 @@ export type ProductType = {
 // --- Data ---
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
   { label: "Products", href: "/products" },
+  { label: "Services", href: "/services" },
+  { label: "Solutions", href: "/#solutions" },
   { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog" },
+  { label: "Insights", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 

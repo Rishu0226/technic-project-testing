@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { navItems } from "../lib/data";
 
 const Navbar: React.FC = () => {
@@ -27,18 +28,7 @@ const Navbar: React.FC = () => {
             className="flex-shrink-0 flex items-center cursor-pointer group"
             onClick={() => window.scrollTo(0, 0)}
           >
-            <div className="w-10 h-10 bg-white/5 backdrop-blur-md border border-white/20 rounded-xl flex items-center justify-center mr-3 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.4)] transition-all duration-300 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/40 to-rose-500/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <span className="text-white font-bold text-xl relative z-10">
-                TN
-              </span>
-            </div>
-            <span className="font-bold text-2xl tracking-tight text-white">
-              TechNic{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-rose-400 to-amber-400">
-                Technologies
-              </span>
-            </span>
+            <Image src="/Assest/logo.png" alt="Technic Technologies" width={180} height={40} className="h-16 w-auto" priority />
           </div>
 
           {/* Desktop Nav */}

@@ -14,16 +14,14 @@ const ProductsSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row justify-between items-end mb-16">
           <div className="max-w-2xl">
-            <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-500 font-semibold tracking-widest uppercase text-sm mb-3 drop-shadow-sm">
-              Product Division
+            <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-500 font-semibold tracking-widest uppercase text-sm mb-3 drop-shadow-sm font-sans">
+              Our Products
             </h2>
-            <h3 className="text-3xl md:text-5xl font-bold text-white mb-6">
+            <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 font-heading">
               Proprietary Platforms
             </h3>
-            <p className="text-lg text-slate-400 font-light">
-              We don&apos;t just build for others; we build for the future. Discover
-              our 5 proprietary products designed to automate, secure, and
-              accelerate enterprise operations.
+            <p className="text-lg text-slate-400 font-light font-sans">
+              Technology products built to solve real-world business problems.
             </p>
           </div>
           <div className="mt-8 lg:mt-0">
@@ -88,10 +86,10 @@ const ProductsSection: React.FC = () => {
                   <Sparkles className="w-4 h-4 mr-2 text-amber-400" />
                   {product.name}
                 </div>
-                <h4 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-md">
+                <h4 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-md font-heading">
                   {product.tagline}
                 </h4>
-                <p className="text-lg text-slate-300 mb-8 font-light">
+                <p className="text-lg text-slate-300 mb-8 font-light font-sans">
                   {product.description}
                 </p>
 
@@ -111,7 +109,7 @@ const ProductsSection: React.FC = () => {
 
                 <Link
                   href="/#contact"
-                  className="inline-flex items-center text-white bg-white/5 backdrop-blur-md border border-white/20 hover:border-orange-500/60 px-7 py-3.5 rounded-full font-semibold transition-all duration-300 hover:shadow-[0_0_25px_rgba(249,115,22,0.3)] hover:bg-white/10"
+                  className="inline-flex items-center text-white bg-white/5 backdrop-blur-md border border-white/20 hover:border-cyan-500/60 px-7 py-3.5 rounded-full font-semibold transition-all duration-300 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)] hover:bg-white/10 font-sans"
                 >
                   Explore {product.name}
                 </Link>

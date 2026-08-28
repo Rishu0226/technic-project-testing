@@ -13,13 +13,13 @@ const ServicesSection: React.FC = () => {
       <BackgroundLights />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500 font-semibold tracking-widest uppercase text-sm mb-3 drop-shadow-sm">
-            Service Division
+          <h2 className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-500 font-semibold tracking-widest uppercase text-sm mb-3 drop-shadow-sm font-sans">
+            Our Services
           </h2>
-          <h3 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Intelligent Solutions for Complex Challenges
+          <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 font-heading">
+            Engineering Solutions
           </h3>
-          <p className="text-lg text-slate-400 font-light">
+          <p className="text-lg text-slate-400 font-light font-sans">
             Leverage our elite engineering team to build custom websites, deploy
             mobile apps, and orchestrate modern DevOps architectures.
           </p>
@@ -37,10 +37,10 @@ const ServicesSection: React.FC = () => {
               <div className="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 relative z-10 shadow-[0_0_15px_rgba(255,255,255,0.02)] group-hover:shadow-[0_0_25px_rgba(249,115,22,0.2)]">
                 {service.icon}
               </div>
-              <h4 className="text-xl font-bold text-white mb-3 relative z-10">
+              <h4 className="text-xl font-bold text-white mb-3 relative z-10 font-heading">
                 {service.title}
               </h4>
-              <p className="text-slate-400 leading-relaxed mb-6 font-light relative z-10 group-hover:text-slate-200 transition-colors">
+              <p className="text-slate-400 leading-relaxed mb-6 font-light relative z-10 group-hover:text-slate-200 transition-colors font-sans">
                 {service.description}
               </p>
               <Link

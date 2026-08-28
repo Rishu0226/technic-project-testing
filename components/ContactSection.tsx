@@ -257,7 +257,7 @@ const ContactSection: React.FC = () => {
                 className="w-full relative group overflow-hidden bg-white/10 backdrop-blur-xl border border-white/20 text-white font-bold py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span className="relative z-10 text-lg">
-                  {status === 'submitting' ? 'Transmitting...' : 'Transmit Message'}
+                  {status === 'submitting' ? 'Submitting...' : 'Submit Approach'}
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-rose-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>

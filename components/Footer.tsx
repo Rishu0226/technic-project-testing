@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer: React.FC = () => {
   return (
@@ -8,14 +9,11 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center mb-6">
-              <div className="w-10 h-10 bg-white/10 border border-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mr-3 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                <span className="text-white font-bold text-sm">TN</span>
-              </div>
-              <span className="font-bold text-2xl text-white">TechNic</span>
+              <Image src="/Assest/logo.png" alt="Technic Technologies" width={40} height={40} className="h-20 w-auto mr-3" />
+              <span className="font-bold text-2xl text-white font-heading">Technic Technologies</span>
             </div>
             <p className="text-sm mb-6 font-light leading-relaxed">
-              A dual-threat technology partner offering 5 proprietary software
-              products and world-class bespoke IT services.
+              We build technology products and engineer digital solutions that help businesses scale.
             </p>
           </div>
 
