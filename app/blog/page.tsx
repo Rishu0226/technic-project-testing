@@ -69,7 +69,7 @@ export default function Blog() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (
-              <article key={post.id} className="bg-white/5 backdrop-blur-xl rounded-[2rem] border border-white/10 hover:border-orange-500/30 overflow-hidden group transition-all duration-500 shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.15)] flex flex-col">
+              <article key={post._id} className="bg-white/5 backdrop-blur-xl rounded-[2rem] border border-white/10 hover:border-orange-500/30 overflow-hidden group transition-all duration-500 shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.15)] flex flex-col">
                 
                 <div className="h-56 overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B1221] to-transparent opacity-60 z-10"></div>

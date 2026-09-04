@@ -2,9 +2,17 @@ import React from "react";
 import { Sparkles, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import BackgroundLights from "./BackgroundLights";
-import { products } from "../lib/data";
+import { ApiClient } from "../lib/api";
+import IconMapper from "./IconMapper";
 
-const ProductsSection: React.FC = () => {
+export default async function ProductsSection() {
+  let products: any[] = [];
+  try {
+    products = await ApiClient.get<any[]>('/api/products');
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+  }
+
   return (
     <section
       id="products"
@@ -35,7 +43,10 @@ const ProductsSection: React.FC = () => {
         </div>
 
         <div className="space-y-16">
-          {products.map((product, idx) => (
+          {products.map((product, idx) => {
+            const colors = ['text-orange-400', 'text-rose-400', 'text-amber-400', 'text-blue-400', 'text-purple-400'];
+            const colorClass = colors[idx % colors.length];
+            return (
             <div
               key={idx}
               className={`flex flex-col lg:flex-row gap-12 items-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-12 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_0_50px_rgba(249,115,22,0.15)] transition-all duration-700 relative overflow-hidden ${idx % 2 === 0 ? "" : "lg:flex-row-reverse"}`}
@@ -54,7 +65,7 @@ const ProductsSection: React.FC = () => {
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-60 group-hover:animate-[scan_3s_ease-in-out_infinite]"></div>
 
                   <div className="relative z-10 w-28 h-28 bg-white/10 backdrop-blur-xl rounded-3xl flex items-center justify-center border border-white/20 shadow-[0_0_50px_rgba(249,115,22,0.15)] group-hover:shadow-[0_0_70px_rgba(249,115,22,0.3)] transition-all duration-500 group-hover:scale-110">
-                    {product.icon}
+                    <IconMapper name={product.icon} className={`w-12 h-12 ${colorClass}`} />
                   </div>
 
                   {/* Decorative UI elements mimicking AI software */}
@@ -94,7 +105,7 @@ const ProductsSection: React.FC = () => {
                 </p>
 
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                  {product.features.map((feature, fIdx) => (
+                  {product.features?.map((feature: string, fIdx: number) => (
                     <li
                       key={fIdx}
                       className="flex items-center text-slate-200 font-medium"
@@ -115,7 +126,8 @@ const ProductsSection: React.FC = () => {
                 </Link>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -132,6 +144,4 @@ const ProductsSection: React.FC = () => {
       />
     </section>
   );
-};
-
-export default ProductsSection;
+}

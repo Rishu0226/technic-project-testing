@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Globe } from "lucide-react";
 import BackgroundLights from "./BackgroundLights";
+import { ApiClient } from "../lib/api";
 
 const ContactSection: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -25,26 +26,15 @@ const ContactSection: React.FC = () => {
     };
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        setStatus('success');
-        setMessage(result.message || 'Message sent successfully. We will be in touch shortly.');
-        (e.target as HTMLFormElement).reset();
-      } else {
-        setStatus('error');
-        setMessage(result.error || 'Failed to send message.');
-      }
-    } catch (err) {
+      const result = await ApiClient.post<{ message?: string }>('/api/contact', data);
+      
+      setStatus('success');
+      setMessage(result.message || 'Message sent successfully. We will be in touch shortly.');
+      (e.target as HTMLFormElement).reset();
+    } catch (err: any) {
       console.error('Contact error:', err);
       setStatus('error');
-      setMessage('A network error occurred. Please try again.');
+      setMessage(err.message || 'A network error occurred. Please try again.');
     }
   };
 
