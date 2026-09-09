@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import Navbar from "../../components/Navbar";
 import Hero from "../../components/Hero";
-import ContactSection from "../../components/ContactSection";
+import ContactSection from "../../components/Contact/ContactSection";
 import Footer from "../../components/Footer";
+import ContactHero from "../../components/Contact/ContactHero";
 
 export const metadata: Metadata = {
   title: "Contact | TechNic Technologies",
@@ -13,7 +14,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-[#0B1221] font-sans text-slate-300 scroll-smooth selection:bg-orange-500/30 selection:text-white">
       <Navbar />
-      <Hero 
+      {/* <Hero 
         badgeText="Initiate Connect"
         title={
           <>
@@ -26,7 +27,8 @@ export default function ContactPage() {
         secondaryActionText="Email Us"
         secondaryActionHref="mailto:hello@technic.dev"
         showBottomFade={false}
-      />
+      /> */}
+      <ContactHero />
       <ContactSection />
       <Footer />
     </div>

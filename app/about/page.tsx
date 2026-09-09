@@ -29,7 +29,9 @@ export default function AboutPage() {
         secondaryActionHref="#about"
       /> */}
 
-      <CompanyJourney />
+      <div className="mt-10">
+        <CompanyJourney />
+      </div>
       <AboutSection />
 
 

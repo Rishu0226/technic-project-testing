@@ -5,7 +5,7 @@ import ServicesSection from "../components/ServicesSection";
 import ProductsSection from "../components/ProductsSection";
 import ProcessSection from "../components/ProcessSection";
 import AboutSection from "../components/About/AboutSection";
-import ContactSection from "../components/ContactSection";
+import ContactSection from "../components/Contact/ContactSection";
 import Footer from "../components/Footer";
 
 
