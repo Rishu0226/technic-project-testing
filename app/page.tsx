@@ -4,14 +4,14 @@ import ProductServicesRelationship from "../components/ProductServicesRelationsh
 import ServicesSection from "../components/ServicesSection";
 import ProductsSection from "../components/ProductsSection";
 import ProcessSection from "../components/ProcessSection";
-import AboutSection from "../components/AboutSection";
+import AboutSection from "../components/About/AboutSection";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
 
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#0B1221] font-sans text-slate-300 scroll-smooth selection:bg-orange-500/30 selection:text-white">
+    <div className="min-h-screen bg-[#0B1221]  font-sans text-slate-300 scroll-smooth selection:bg-orange-500/30 selection:text-white">
       <Navbar />
       <Hero />
       <ProductServicesRelationship />

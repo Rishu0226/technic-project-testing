@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 import Navbar from "../../components/Navbar";
 import Hero from "../../components/Hero";
-import AboutSection from "../../components/AboutSection";
+import AboutSection from "../../components/About/AboutSection";
 import Footer from "../../components/Footer";
+import CompanyJourney from "../../components/About/CompanyJourney";
+
 
 export const metadata: Metadata = {
   title: "About Us | TechNic Technologies",
@@ -13,7 +15,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#0B1221] font-sans text-slate-300 scroll-smooth selection:bg-orange-500/30 selection:text-white">
       <Navbar />
-      <Hero 
+      {/* <Hero
         badgeText="Our Story"
         title={
           <>
@@ -25,8 +27,12 @@ export default function AboutPage() {
         primaryActionHref="#careers"
         secondaryActionText="Read Our Mission"
         secondaryActionHref="#about"
-      />
+      /> */}
+
+      <CompanyJourney />
       <AboutSection />
+
+
       <Footer />
     </div>
   );

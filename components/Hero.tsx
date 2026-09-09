@@ -33,7 +33,7 @@ const Hero: React.FC<HeroProps> = ({
 }) => {
   return (
     <section
-      className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-[#0B1221] min-h-screen flex items-center"
+      className="relative mt-[-32px] pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-[#0B1221] min-h-screen flex items-center"
     >
       <BackgroundLights />
 
@@ -79,18 +79,18 @@ const Hero: React.FC<HeroProps> = ({
             )}
           </div>
         </div>
-        
+
         <div className="w-full lg:w-1/2 relative flex justify-center mt-12 lg:mt-0">
-           <video 
-             autoPlay 
-             loop 
-             muted 
-             playsInline 
-             className="w-full max-w-lg lg:max-w-xl object-contain drop-shadow-[0_0_40px_rgba(37,99,235,0.2)] rounded-3xl"
-           >
-             <source src="/Assest/hero.mp4" type="video/mp4" />
-             Your browser does not support the video tag.
-           </video>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full max-w-lg lg:max-w-xl object-contain drop-shadow-[0_0_40px_rgba(37,99,235,0.2)] rounded-3xl"
+          >
+            <source src="/Assest/hero.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
 

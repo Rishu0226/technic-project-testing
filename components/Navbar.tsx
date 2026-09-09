@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
 
 
             <div className="flex items-center space-x-2">
-              <Image src="/Assest/logo.png" alt="Technic Technologies" width={180} height={40} className="h-16 w-auto" priority />
+              <Image src="/Assest/logo2.png" alt="Technic Technologies" width={180} height={40} className="h-16 w-auto" priority />
 
               <span className="font-bold text-2xl tracking-tight text-white">
                 TechNic{" "}
