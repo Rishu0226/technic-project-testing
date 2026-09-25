@@ -7,7 +7,8 @@ import IconMapper from "./IconMapper";
 export default async function ServicesSection() {
   let services: any[] = [];
   try {
-    services = await ApiClient.get<any[]>('/api/services');
+    const data = await ApiClient.get<any[]>('/api/services');
+    services = Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Failed to fetch services:", error);
   }

@@ -8,6 +8,8 @@ import Footer from "../../../components/Footer";
 import CareerApplicationForm from "../../../components/CareerApplicationForm";
 import { ApiClient } from "../../../lib/api";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
   let job: any = null;

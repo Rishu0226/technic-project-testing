@@ -6,7 +6,8 @@ import IconMapper from "./IconMapper";
 export default async function ProductsSection() {
   let products: any[] = [];
   try {
-    products = await ApiClient.get<any[]>('/api/products');
+    const data = await ApiClient.get<any[]>('/api/products');
+    products = Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Failed to fetch products:", error);
   }

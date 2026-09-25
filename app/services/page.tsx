@@ -4,6 +4,8 @@ import Hero from "../../components/Hero";
 import ServicesSection from "../../components/ServicesSection";
 import Footer from "../../components/Footer";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Services | TechNic Technologies",
   description: "Elite IT Services, Custom Website Development, Mobile Apps, and Cloud DevOps Solutions.",

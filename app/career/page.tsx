@@ -11,13 +11,16 @@ export const metadata: Metadata = {
   description: "Join our team of engineers, designers, and researchers to build the future of autonomous enterprise software.",
 };
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default async function CareerPage() {
   let publishedJobs: any[] = [];
+  let loadFailed = false;
   try {
-    publishedJobs = await ApiClient.get<any[]>('/api/careers');
+    const data = await ApiClient.get<any[]>('/api/careers');
+    publishedJobs = Array.isArray(data) ? data : [];
   } catch (error) {
+    loadFailed = true;
     console.error("Failed to fetch jobs:", error);
   }
 
@@ -88,7 +91,12 @@ export default async function CareerPage() {
               Open Positions
             </h2>
 
-            {publishedJobs.length === 0 ? (
+            {loadFailed ? (
+              <div className="bg-white border border-technic-border rounded-2xl p-12 text-center shadow-tn-card">
+                <h3 className="text-xl font-medium text-technic-text mb-2">Open positions could not be loaded</h3>
+                <p className="text-technic-muted">Refresh the page to load the latest careers from the server.</p>
+              </div>
+            ) : publishedJobs.length === 0 ? (
               <div className="bg-white border border-technic-border rounded-2xl p-12 text-center shadow-tn-card">
                 <h3 className="text-xl font-medium text-technic-text mb-2">No open positions right now</h3>
                 <p className="text-technic-muted">Check back later or follow us on our social channels for updates.</p>

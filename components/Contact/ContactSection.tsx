@@ -11,12 +11,6 @@ type SiteSettings = {
   whatsapp?: string;
 };
 
-const fallbackSettings: SiteSettings = {
-  companyName: "Global Headquarters",
-  address: "100 Innovation Drive\nTech District, CA 94043",
-  email: "hello@technic.dev",
-};
-
 function whatsappHref(value: string) {
   const digits = value.replace(/[^\d]/g, "");
   return digits ? `https://wa.me/${digits}` : undefined;
@@ -25,24 +19,38 @@ function whatsappHref(value: string) {
 const ContactSection: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
-  const [settings, setSettings] = useState<SiteSettings>(fallbackSettings);
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [interests, setInterests] = useState<string[]>(["Other Inquiry"]);
 
   useEffect(() => {
     let cancelled = false;
 
-    ApiClient.get<SiteSettings>("/api/settings")
-      .then((data) => {
-        if (cancelled || !data) return;
-        setSettings({
-          companyName: data.companyName || fallbackSettings.companyName,
-          address: data.address || fallbackSettings.address,
-          email: data.email || fallbackSettings.email,
-          phone: data.phone || "",
-          whatsapp: data.whatsapp || "",
-        });
+    Promise.all([
+      ApiClient.get<SiteSettings>("/api/settings"),
+      ApiClient.get<{ title?: string }[]>("/api/services"),
+      ApiClient.get<{ name?: string }[]>("/api/products"),
+    ])
+      .then(([settingsData, services, products]) => {
+        if (cancelled) return;
+        if (settingsData) {
+          setSettings({
+            companyName: settingsData.companyName || "",
+            address: settingsData.address || "",
+            email: settingsData.email || "",
+            phone: settingsData.phone || "",
+            whatsapp: settingsData.whatsapp || "",
+          });
+        }
+        const serviceOptions = Array.isArray(services)
+          ? services.map((service) => service.title).filter((title): title is string => Boolean(title)).map((title) => `Service: ${title}`)
+          : [];
+        const productOptions = Array.isArray(products)
+          ? products.map((product) => product.name).filter((name): name is string => Boolean(name)).map((name) => `Product: ${name}`)
+          : [];
+        setInterests([...serviceOptions, ...productOptions, "Other Inquiry"]);
       })
-      .catch(() => {
-        if (!cancelled) setSettings(fallbackSettings);
+      .catch((error) => {
+        console.error("Failed to fetch contact details:", error);
       });
 
     return () => {
@@ -50,7 +58,7 @@ const ContactSection: React.FC = () => {
     };
   }, []);
 
-  const whatsappLink = settings.whatsapp ? whatsappHref(settings.whatsapp) : undefined;
+  const whatsappLink = settings?.whatsapp ? whatsappHref(settings.whatsapp) : undefined;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,6 +111,7 @@ const ContactSection: React.FC = () => {
               </p>
 
               <div className="space-y-8">
+                {settings && (settings.companyName || settings.address) ? (
                 <div className="flex items-start">
                   <div className="w-12 h-12 rounded-2xl bg-technic-cyan-soft flex items-center justify-center mr-5 flex-shrink-0">
                     <Globe className="w-6 h-6 text-technic-cyan-deep" />
@@ -112,7 +121,8 @@ const ContactSection: React.FC = () => {
                     <p className="text-technic-secondary mt-1 whitespace-pre-line">{settings.address}</p>
                   </div>
                 </div>
-                {settings.email && (
+                ) : null}
+                {settings?.email && (
                   <div className="flex items-center">
                     <div className="w-12 h-12 rounded-2xl bg-technic-orange-soft flex items-center justify-center mr-5 flex-shrink-0">
                       <Mail className="w-6 h-6 text-technic-orange" />
@@ -122,7 +132,7 @@ const ContactSection: React.FC = () => {
                     </a>
                   </div>
                 )}
-                {settings.phone && (
+                {settings?.phone && (
                   <div className="flex items-center">
                     <div className="w-12 h-12 rounded-2xl bg-technic-cyan-soft flex items-center justify-center mr-5 flex-shrink-0">
                       <Phone className="w-6 h-6 text-technic-cyan-deep" />
@@ -143,7 +153,7 @@ const ContactSection: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {settings.whatsapp}
+                      {settings?.whatsapp}
                     </a>
                   </div>
                 )}
@@ -212,14 +222,9 @@ const ContactSection: React.FC = () => {
                     I am interested in...
                   </label>
                   <select id="interest" name="interest" className="tn-input">
-                    <option value="Service: Custom Website/App">Service: Custom Website/App</option>
-                    <option value="Service: DevOps & Cloud">Service: DevOps & Cloud</option>
-                    <option value="Product: NicFlow AI">Product: NicFlow AI</option>
-                    <option value="Product: TechGuard Sentinel">Product: TechGuard Sentinel</option>
-                    <option value="Product: DataStream Nexus">Product: DataStream Nexus</option>
-                    <option value="Product: NicOps Deployer">Product: NicOps Deployer</option>
-                    <option value="Product: SiteCrafter">Product: SiteCrafter</option>
-                    <option value="Other Inquiry">Other Inquiry</option>
+                    {interests.map((interest) => (
+                      <option key={interest} value={interest}>{interest}</option>
+                    ))}
                   </select>
                 </div>
 

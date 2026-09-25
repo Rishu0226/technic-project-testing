@@ -8,6 +8,7 @@ import AboutSection from "../components/About/AboutSection";
 import ContactSection from "../components/Contact/ContactSection";
 import Footer from "../components/Footer";
 
+export const dynamic = "force-dynamic";
 
 export default function App() {
   return (

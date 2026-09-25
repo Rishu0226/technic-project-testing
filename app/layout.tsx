@@ -18,6 +18,8 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: {
     template: "%s | Technic Technologies",

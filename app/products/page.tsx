@@ -4,6 +4,8 @@ import Hero from "../../components/Hero";
 import ProductsSection from "../../components/ProductsSection";
 import Footer from "../../components/Footer";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Products | TechNic Technologies",
   description: "Discover our 5 proprietary AI platforms, including NicFlow AI, TechGuard Sentinel, and more.",

@@ -1,8 +1,22 @@
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ApiClient } from "../lib/api";
 
-const Footer: React.FC = () => {
+export default async function Footer() {
+  let services: { title?: string }[] = [];
+  let products: { name?: string }[] = [];
+
+  try {
+    const [serviceData, productData] = await Promise.all([
+      ApiClient.get<{ title?: string }[]>("/api/services"),
+      ApiClient.get<{ name?: string }[]>("/api/products"),
+    ]);
+    services = Array.isArray(serviceData) ? serviceData : [];
+    products = Array.isArray(productData) ? productData : [];
+  } catch (error) {
+    console.error("Failed to fetch footer content:", error);
+  }
+
   return (
     <footer className="bg-technic-bg text-technic-secondary py-16 border-t border-technic-border relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,57 +40,42 @@ const Footer: React.FC = () => {
           <div>
             <h2 className="text-technic-text font-semibold mb-6 text-lg font-heading">Services</h2>
             <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/services" className="hover:text-technic-cyan transition-colors">
-                  Custom Websites & Web Apps
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="hover:text-technic-cyan transition-colors">
-                  Mobile App Development
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="hover:text-technic-cyan transition-colors">
-                  DevOps & Cloud Architecture
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="hover:text-technic-cyan transition-colors">
-                  Generative AI Solutions
-                </Link>
-              </li>
+              {services.length === 0 ? (
+                <li>
+                  <Link href="/services" className="hover:text-technic-cyan transition-colors">
+                    View services
+                  </Link>
+                </li>
+              ) : (
+                services.map((service) => (
+                  <li key={service.title}>
+                    <Link href="/services" className="hover:text-technic-cyan transition-colors">
+                      {service.title}
+                    </Link>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
 
           <div>
             <h2 className="text-technic-text font-semibold mb-6 text-lg font-heading">Our Products</h2>
             <ul className="space-y-3 text-sm">
-              <li>
-                <Link href="/products" className="hover:text-technic-cyan transition-colors">
-                  NicFlow AI (ERP)
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-technic-cyan transition-colors">
-                  TechGuard Sentinel
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-technic-cyan transition-colors">
-                  DataStream Nexus
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-technic-cyan transition-colors">
-                  NicOps Deployer
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="hover:text-technic-cyan transition-colors">
-                  SiteCrafter Headless
-                </Link>
-              </li>
+              {products.length === 0 ? (
+                <li>
+                  <Link href="/products" className="hover:text-technic-cyan transition-colors">
+                    View products
+                  </Link>
+                </li>
+              ) : (
+                products.map((product) => (
+                  <li key={product.name}>
+                    <Link href="/products" className="hover:text-technic-cyan transition-colors">
+                      {product.name}
+                    </Link>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
 
@@ -128,6 +127,4 @@ const Footer: React.FC = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
