@@ -1,13 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import AboutGrid from "./AboutGrid";
-
-const stats = [
-  { value: "500+", label: "Projects Delivered", accent: "bg-technic-cyan" },
-  { value: "50+", label: "Technology Experts", accent: "bg-technic-orange" },
-  { value: "10+", label: "Industries", accent: "bg-technic-cyan" },
-  { value: "99%", label: "Client Satisfaction", accent: "bg-technic-orange" },
-];
+import CompanyStats from "./CompanyStats";
 
 const AboutSection: React.FC = () => {
   return (
@@ -41,17 +35,8 @@ const AboutSection: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="bg-white border border-technic-border p-6 rounded-3xl shadow-tn-card hover:border-technic-cyan transition-colors"
-            >
-              <div className={`h-1 w-10 rounded-full mb-4 ${stat.accent}`} />
-              <div className="text-4xl font-extrabold text-technic-text mb-2 font-heading">{stat.value}</div>
-              <div className="text-technic-muted font-medium text-sm">{stat.label}</div>
-            </div>
-          ))}
+        <div className="mt-16">
+          <CompanyStats />
         </div>
 
         <div className="w-full flex justify-center mt-20">

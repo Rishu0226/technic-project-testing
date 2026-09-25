@@ -50,7 +50,7 @@ export default async function ServicesSection() {
                   {service.description}
                 </p>
                 <Link
-                  href="/contact"
+                  href={`/services/${service.slug}`}
                   className="inline-flex items-center text-technic-cyan-deep font-medium hover:text-technic-orange transition-colors"
                 >
                   Learn more

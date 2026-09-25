@@ -10,7 +10,13 @@ import {
   Layout,
   Smartphone,
   Terminal,
-  Rocket
+  Rocket,
+  HeartPulse,
+  GraduationCap,
+  ShoppingCart,
+  Factory,
+  Truck,
+  Landmark,
 } from 'lucide-react';
 
 interface IconMapperProps {
@@ -29,7 +35,13 @@ const iconMap: Record<string, React.ElementType> = {
   Layout,
   Smartphone,
   Terminal,
-  Rocket
+  Rocket,
+  HeartPulse,
+  GraduationCap,
+  ShoppingCart,
+  Factory,
+  Truck,
+  Landmark,
 };
 
 const IconMapper: React.FC<IconMapperProps> = ({ name, className }) => {
