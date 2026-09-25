@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${raleway.variable} ${roboto.variable} font-sans h-full antialiased bg-[#0B1221] text-slate-300`}
+      className={`${inter.variable} ${raleway.variable} ${roboto.variable} font-sans h-full antialiased bg-white text-technic-secondary`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

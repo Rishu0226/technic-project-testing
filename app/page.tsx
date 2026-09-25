@@ -11,7 +11,7 @@ import Footer from "../components/Footer";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#0B1221]  font-sans text-slate-300 scroll-smooth selection:bg-orange-500/30 selection:text-white">
+    <div className="min-h-screen bg-white font-sans text-technic-secondary scroll-smooth">
       <Navbar />
       <Hero />
       <ProductServicesRelationship />

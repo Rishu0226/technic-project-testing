@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#0B1221] font-sans text-slate-300 scroll-smooth selection:bg-orange-500/30 selection:text-white">
+    <div className="min-h-screen bg-white font-sans text-technic-secondary scroll-smooth">
       <Navbar />
       {/* <Hero
         badgeText="Our Story"
         title={
           <>
-            Dual-Threat <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">Innovation.</span>
+            Dual-Threat <span className="text-technic-orange">Innovation.</span>
           </>
         }
         description="Most companies are either agencies or product studios. TechNic operates as both, bringing research-grade insights directly to enterprise clients."

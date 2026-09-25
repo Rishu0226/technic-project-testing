@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#0B1221] font-sans text-slate-300 scroll-smooth selection:bg-orange-500/30 selection:text-white">
+    <div className="min-h-screen bg-white font-sans text-technic-secondary scroll-smooth">
       <Navbar />
       {/* <Hero 
         badgeText="Initiate Connect"
         title={
           <>
-            Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">accelerate?</span>
+            Ready to <span className="text-technic-cyan">accelerate?</span>
           </>
         }
         description="Request a demo of our platforms or discuss a custom engineering project with our solution architects at our Global Headquarters."

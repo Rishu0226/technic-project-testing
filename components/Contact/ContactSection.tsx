@@ -1,12 +1,56 @@
 "use client";
-import React, { useState } from "react";
-import { Globe } from "lucide-react";
-import BackgroundLights from "../BackgroundLights";
+import React, { useEffect, useState } from "react";
+import { Globe, Mail, MessageCircle, Phone } from "lucide-react";
 import { ApiClient } from "../../lib/api";
+
+type SiteSettings = {
+  companyName?: string;
+  address?: string;
+  email?: string;
+  phone?: string;
+  whatsapp?: string;
+};
+
+const fallbackSettings: SiteSettings = {
+  companyName: "Global Headquarters",
+  address: "100 Innovation Drive\nTech District, CA 94043",
+  email: "hello@technic.dev",
+};
+
+function whatsappHref(value: string) {
+  const digits = value.replace(/[^\d]/g, "");
+  return digits ? `https://wa.me/${digits}` : undefined;
+}
 
 const ContactSection: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const [settings, setSettings] = useState<SiteSettings>(fallbackSettings);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    ApiClient.get<SiteSettings>("/api/settings")
+      .then((data) => {
+        if (cancelled || !data) return;
+        setSettings({
+          companyName: data.companyName || fallbackSettings.companyName,
+          address: data.address || fallbackSettings.address,
+          email: data.email || fallbackSettings.email,
+          phone: data.phone || "",
+          whatsapp: data.whatsapp || "",
+        });
+      })
+      .catch(() => {
+        if (!cancelled) setSettings(fallbackSettings);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const whatsappLink = settings.whatsapp ? whatsappHref(settings.whatsapp) : undefined;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,180 +83,135 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className="py-24 bg-[#0B1221] relative overflow-hidden"
-    >
-      <BackgroundLights />
+    <section id="contact" className="py-24 bg-technic-bg relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[3rem] shadow-[0_15px_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col lg:flex-row relative">
-          <div className="p-10 md:p-16 lg:w-2/5 text-white flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-white/5 to-transparent border-r border-white/10">
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-orange-500/20 blur-[80px]"></div>
-            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full bg-rose-500/20 blur-[80px]"></div>
+        <div className="bg-white border border-technic-border rounded-[2rem] shadow-tn-lg overflow-hidden flex flex-col lg:flex-row">
+          <div className="p-10 md:p-16 lg:w-2/5 flex flex-col justify-between relative overflow-hidden border-b lg:border-b-0 lg:border-r border-technic-border bg-technic-bg">
+            <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-technic-cyan/10 blur-3xl" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 w-40 h-40 rounded-full bg-technic-orange/10 blur-3xl" aria-hidden="true" />
 
             <div className="relative z-10">
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-semibold tracking-wider text-slate-200 mb-8 uppercase shadow-inner">
-                Initiate Connect
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white border border-technic-border text-xs font-semibold tracking-wider text-technic-cyan-deep mb-8 uppercase">
+                Contact
               </div>
-              <h3 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-                Ready to{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
-                  accelerate?
-                </span>
+              <h3 className="text-3xl md:text-5xl font-bold mb-6 leading-tight text-technic-text font-heading">
+                Ready to <span className="text-technic-cyan">accelerate?</span>
               </h3>
-              <p className="text-slate-300 text-lg mb-12 font-light leading-relaxed">
+              <p className="text-technic-secondary text-lg mb-12 leading-relaxed">
                 Request a demo of our platforms or discuss a custom engineering
                 project with our solution architects.
               </p>
 
               <div className="space-y-8">
                 <div className="flex items-start">
-                  <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mr-5 flex-shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                    <Globe className="w-6 h-6 text-orange-400" />
+                  <div className="w-12 h-12 rounded-2xl bg-technic-cyan-soft flex items-center justify-center mr-5 flex-shrink-0">
+                    <Globe className="w-6 h-6 text-technic-cyan-deep" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-lg text-white">
-                      Global Headquarters
-                    </h4>
-                    <p className="text-slate-400 font-light mt-1">
-                      100 Innovation Drive
-                      <br />
-                      Tech District, CA 94043
-                    </p>
+                    <h4 className="font-semibold text-lg text-technic-text">{settings.companyName}</h4>
+                    <p className="text-technic-secondary mt-1 whitespace-pre-line">{settings.address}</p>
                   </div>
                 </div>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mr-5 flex-shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                    <svg
-                      className="w-6 h-6 text-amber-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                {settings.email && (
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 rounded-2xl bg-technic-orange-soft flex items-center justify-center mr-5 flex-shrink-0">
+                      <Mail className="w-6 h-6 text-technic-orange" />
+                    </div>
+                    <a href={`mailto:${settings.email}`} className="text-lg text-technic-secondary hover:text-technic-cyan-deep">
+                      {settings.email}
+                    </a>
+                  </div>
+                )}
+                {settings.phone && (
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 rounded-2xl bg-technic-cyan-soft flex items-center justify-center mr-5 flex-shrink-0">
+                      <Phone className="w-6 h-6 text-technic-cyan-deep" />
+                    </div>
+                    <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="text-lg text-technic-secondary hover:text-technic-cyan-deep">
+                      {settings.phone}
+                    </a>
+                  </div>
+                )}
+                {whatsappLink && (
+                  <div className="flex items-center">
+                    <div className="w-12 h-12 rounded-2xl bg-technic-orange-soft flex items-center justify-center mr-5 flex-shrink-0">
+                      <MessageCircle className="w-6 h-6 text-technic-orange" />
+                    </div>
+                    <a
+                      href={whatsappLink}
+                      className="text-lg text-technic-secondary hover:text-technic-cyan-deep"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
+                      {settings.whatsapp}
+                    </a>
                   </div>
-                  <span className="text-lg text-slate-300 font-light">
-                    hello@technic.dev
-                  </span>
-                </div>
+                )}
               </div>
             </div>
           </div>
 
-          <div className="p-10 md:p-16 lg:w-3/5 bg-transparent">
-            <h3 className="text-2xl font-bold text-white mb-8">
-              Send a secure message
-            </h3>
+          <div className="p-10 md:p-16 lg:w-3/5 bg-white">
+            <h3 className="text-2xl font-bold text-technic-text mb-8 font-heading">Send a message</h3>
 
             {status === 'success' ? (
-              <div className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-6 rounded-2xl flex flex-col items-center justify-center text-center space-y-4">
-                <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center">
-                  <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="bg-technic-success-soft border border-technic-success/20 text-technic-success p-6 rounded-2xl flex flex-col items-center justify-center text-center space-y-4" role="status">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-technic-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-bold text-white">Message Transmitted</h4>
+                <h4 className="text-xl font-bold text-technic-text">Message sent</h4>
                 <p>{message}</p>
                 <button
+                  type="button"
                   onClick={() => setStatus('idle')}
-                  className="mt-4 px-6 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+                  className="mt-4 px-6 py-2 bg-white border border-technic-border rounded-full text-technic-text hover:border-technic-cyan transition-colors"
                 >
-                  Send Another Message
+                  Send another message
                 </button>
               </div>
             ) : (
               <form className="space-y-6" onSubmit={handleSubmit}>
                 {status === 'error' && (
-                  <div className="bg-rose-500/10 border border-rose-500/30 text-rose-400 px-4 py-3 rounded-xl text-sm">
+                  <div className="bg-technic-error-soft border border-technic-error/20 text-technic-error px-4 py-3 rounded-xl text-sm" role="alert">
                     {message}
                   </div>
                 )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label
-                      htmlFor="firstName"
-                      className="block text-sm font-medium text-slate-300 mb-2"
-                    >
+                    <label htmlFor="firstName" className="block text-sm font-medium text-technic-text mb-2">
                       First Name
                     </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      required
-                      className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all backdrop-blur-md shadow-inner"
-                      placeholder="John"
-                    />
+                    <input type="text" id="firstName" name="firstName" required className="tn-input" placeholder="John" />
                   </div>
                   <div>
-                    <label
-                      htmlFor="lastName"
-                      className="block text-sm font-medium text-slate-300 mb-2"
-                    >
+                    <label htmlFor="lastName" className="block text-sm font-medium text-technic-text mb-2">
                       Last Name
                     </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      required
-                      className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all backdrop-blur-md shadow-inner"
-                      placeholder="Doe"
-                    />
+                    <input type="text" id="lastName" name="lastName" required className="tn-input" placeholder="Doe" />
                   </div>
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-slate-300 mb-2"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-technic-text mb-2">
                     Email Address
                   </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all backdrop-blur-md shadow-inner"
-                    placeholder="john@company.com"
-                  />
+                  <input type="email" id="email" name="email" required className="tn-input" placeholder="john@company.com" autoComplete="email" />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-slate-300 mb-2"
-                  >
+                  <label htmlFor="phone" className="block text-sm font-medium text-technic-text mb-2">
                     Phone Number
                   </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all backdrop-blur-md shadow-inner"
-                    placeholder="+1 (555) 000-0000"
-                  />
+                  <input type="tel" id="phone" name="phone" className="tn-input" placeholder="+1 (555) 000-0000" autoComplete="tel" />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="interest"
-                    className="block text-sm font-medium text-slate-300 mb-2"
-                  >
+                  <label htmlFor="interest" className="block text-sm font-medium text-technic-text mb-2">
                     I am interested in...
                   </label>
-                  <select
-                    id="interest"
-                    name="interest"
-                    className="w-full px-5 py-4 rounded-2xl bg-[#0B1221] border border-white/10 text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all shadow-inner appearance-none"
-                  >
+                  <select id="interest" name="interest" className="tn-input">
                     <option value="Service: Custom Website/App">Service: Custom Website/App</option>
                     <option value="Service: DevOps & Cloud">Service: DevOps & Cloud</option>
                     <option value="Product: NicFlow AI">Product: NicFlow AI</option>
@@ -225,31 +224,18 @@ const ContactSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-slate-300 mb-2"
-                  >
+                  <label htmlFor="message" className="block text-sm font-medium text-technic-text mb-2">
                     Message
                   </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={4}
-                    className="w-full px-5 py-4 rounded-2xl bg-[#0B1221]/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all resize-none backdrop-blur-md shadow-inner"
-                    placeholder="Tell us about your objectives..."
-                  ></textarea>
+                  <textarea id="message" name="message" required rows={4} className="tn-input resize-none" placeholder="Tell us about your objectives..." />
                 </div>
 
                 <button
                   type="submit"
                   disabled={status === 'submitting'}
-                  className="w-full relative group overflow-hidden bg-white/10 backdrop-blur-xl border border-white/20 text-white font-bold py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-brand-gradient text-white font-semibold py-4 rounded-2xl shadow-tn-sm transition-opacity hover:opacity-95 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="relative z-10 text-lg">
-                    {status === 'submitting' ? 'Submitting...' : 'Submit Approach'}
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-rose-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  {status === 'submitting' ? 'Submitting...' : 'Submit'}
                 </button>
               </form>
             )}

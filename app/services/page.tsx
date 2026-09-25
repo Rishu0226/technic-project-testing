@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-[#0B1221] font-sans text-slate-300 scroll-smooth selection:bg-orange-500/30 selection:text-white">
+    <div className="min-h-screen bg-white font-sans text-technic-secondary scroll-smooth">
       <Navbar />
       <Hero 
-        badgeText="Service Division"
+        badgeText="TECHNOLOGY • INNOVATION • ENGINEERING"
         title={
           <>
-            Elite IT <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">Engineering.</span>
+            Elite IT <span className="text-technic-cyan">Engineering.</span>
           </>
         }
         description="We orchestrate modern web, mobile, and cloud architectures. Our service division implements cutting-edge insights directly into bespoke client projects."

@@ -37,7 +37,7 @@ const services = [
 
 export default function ContactHero() {
   return (
-    <section className="relative min-h-[calc(100vh-80px)] overflow-hidden bg-[#0B1221] text-white">
+    <section className="relative min-h-[calc(100vh-80px)] overflow-hidden bg-white text-technic-text">
       {/* =========================================================
           BACKGROUND
       ========================================================= */}
@@ -54,13 +54,13 @@ export default function ContactHero() {
         />
 
         {/* Orange glow */}
-        <div className="absolute left-[15%] top-[30%] h-[420px] w-[420px] rounded-full bg-orange-500/[0.07] blur-[140px]" />
+        <div className="absolute left-[15%] top-[30%] h-[420px] w-[420px] rounded-full bg-technic-cyan/10 blur-[140px]" />
 
         {/* Purple glow */}
-        <div className="absolute right-[5%] top-[15%] h-[500px] w-[500px] rounded-full bg-purple-500/[0.06] blur-[150px]" />
+        <div className="absolute right-[5%] top-[15%] h-[500px] w-[500px] rounded-full bg-technic-orange/10 blur-[150px]" />
 
         {/* Bottom glow */}
-        <div className="absolute bottom-[-250px] left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-orange-500/[0.035] blur-[120px]" />
+        <div className="absolute bottom-[-250px] left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-technic-cyan/10 blur-[120px]" />
       </div>
 
       {/* =========================================================
@@ -94,9 +94,9 @@ export default function ContactHero() {
             {/* Label */}
 
             <div className="contact-hero-label mb-7 flex items-center gap-4">
-              <span className="h-px w-10 bg-gradient-to-r from-orange-500 to-purple-500" />
+              <span className="h-px w-10 bg-gradient-to-r from-technic-cyan to-technic-orange" />
 
-              <span className="font-mono text-xs font-medium tracking-[0.35em] text-slate-100">
+              <span className="font-technical text-xs font-medium tracking-[0.35em] text-technic-text">
                 CONTACT TECHNIC
               </span>
             </div>
@@ -106,14 +106,14 @@ export default function ContactHero() {
             <h1 className="contact-hero-title text-5xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-6xl lg:text-7xl xl:text-[82px]">
               Let&apos;s Build
               <br />
-              <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-purple-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-technic-cyan to-technic-orange bg-clip-text text-transparent">
                 What&apos;s Next.
               </span>
             </h1>
 
             {/* Description */}
 
-            <p className="contact-hero-description mt-8 max-w-xl text-lg leading-relaxed text-slate-400 sm:text-xl">
+            <p className="contact-hero-description mt-8 max-w-xl text-lg leading-relaxed text-technic-muted sm:text-xl">
               Have an idea, a challenge, or a product in mind?
               <br className="hidden sm:block" />
               Let&apos;s turn it into a scalable digital solution.
@@ -124,13 +124,13 @@ export default function ContactHero() {
             <div className="contact-hero-cta mt-9 flex flex-wrap items-center gap-6">
               <Link
                 href="/#contact"
-                className="contact-cta group relative inline-flex items-center gap-5 overflow-hidden rounded-full border border-orange-500/60 bg-orange-500/[0.04] py-3 pl-7 pr-3 transition-all duration-300 hover:border-orange-400 hover:bg-orange-500/10"
+                className="contact-cta group relative inline-flex items-center gap-5 overflow-hidden rounded-full bg-brand-gradient py-3 pl-7 pr-3 shadow-tn-sm transition-opacity duration-300 hover:opacity-95"
               >
                 <span className="relative z-10 text-sm font-medium tracking-[0.12em] text-white">
                   START A CONVERSATION
                 </span>
 
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-orange-500 text-xl text-[#0B1221] transition-transform duration-300 group-hover:translate-x-1">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-xl text-technic-cyan-deep transition-transform duration-300 group-hover:translate-x-1">
                   →
                 </span>
               </Link>
@@ -139,17 +139,17 @@ export default function ContactHero() {
 
               <div className="flex items-center gap-3">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-technic-success opacity-60" />
 
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-technic-success" />
                 </span>
 
                 <div>
-                  <p className="font-mono text-[10px] tracking-[0.2em] text-emerald-400">
+                  <p className="font-technical text-[10px] tracking-[0.2em] text-technic-success">
                     SYSTEM ONLINE
                   </p>
 
-                  <p className="mt-1 text-xs text-slate-300">
+                  <p className="mt-1 text-xs text-technic-secondary">
                     We&apos;re ready to listen
                   </p>
                 </div>
@@ -159,31 +159,31 @@ export default function ContactHero() {
             {/* Small technology line */}
 
             <div className="contact-tech-line mt-12 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <span className="font-mono text-[15px] tracking-[0.2em] text-slate-200">
+              <span className="font-technical text-[15px] tracking-[0.2em] text-technic-secondary">
                 SPECIALIZED IN
               </span>
 
-              <span className="h-px w-6 bg-white/10" />
+              <span className="h-px w-6 bg-technic-border" />
 
-              <span className="font-mono text-[14px] tracking-[0.15em] text-slate-100">
+              <span className="font-technical text-[14px] tracking-[0.15em] text-technic-text">
                 WEB
               </span>
 
-              <span className="text-slate-700">•</span>
+              <span className="text-technic-border">•</span>
 
-              <span className="font-mono text-[14px] tracking-[0.15em] text-slate-100">
+              <span className="font-technical text-[14px] tracking-[0.15em] text-technic-text">
                 MOBILE
               </span>
 
-              <span className="text-slate-700">•</span>
+              <span className="text-technic-border">•</span>
 
-              <span className="font-mono text-[14px] tracking-[0.15em] text-slate-100">
+              <span className="font-technical text-[14px] tracking-[0.15em] text-technic-text">
                 AI
               </span>
 
-              <span className="text-slate-700">•</span>
+              <span className="text-technic-border">•</span>
 
-              <span className="font-mono text-[14px] tracking-[0.15em] text-slate-100">
+              <span className="font-technical text-[14px] tracking-[0.15em] text-technic-text">
                 CLOUD
               </span>
             </div>
@@ -196,13 +196,13 @@ export default function ContactHero() {
           <div className="contact-visual relative mx-auto flex h-[480px] w-full max-w-[560px] items-center justify-center lg:h-[600px]">
             {/* Outer glow */}
 
-            <div className="absolute h-[260px] w-[260px] rounded-full bg-orange-500/[0.035] blur-[70px] sm:h-[340px] sm:w-[340px] lg:h-[430px] lg:w-[430px]" />
+            <div className="absolute h-[260px] w-[260px] rounded-full bg-technic-cyan/10 blur-[70px] sm:h-[340px] sm:w-[340px] lg:h-[430px] lg:w-[430px]" />
 
             {/* =================================================
                 OUTER ORBIT
             ================================================= */}
 
-            <div className="orbit-outer absolute h-[340px] w-[340px] rounded-full border border-orange-500/10 sm:h-[410px] sm:w-[410px] lg:h-[480px] lg:w-[480px]">
+            <div className="orbit-outer absolute h-[340px] w-[340px] rounded-full border border-technic-cyan/20 sm:h-[410px] sm:w-[410px] lg:h-[480px] lg:w-[480px]">
               <div className="orbit-dot orbit-dot-1" />
               <div className="orbit-dot orbit-dot-2" />
             </div>
@@ -211,7 +211,7 @@ export default function ContactHero() {
                 SECOND ORBIT
             ================================================= */}
 
-            <div className="orbit-middle absolute h-[270px] w-[270px] rotate-[25deg] rounded-full border border-purple-500/15 sm:h-[330px] sm:w-[330px] lg:h-[390px] lg:w-[390px]">
+            <div className="orbit-middle absolute h-[270px] w-[270px] rotate-[25deg] rounded-full border border-technic-orange/25 sm:h-[330px] sm:w-[330px] lg:h-[390px] lg:w-[390px]">
               <div className="orbit-dot orbit-dot-3" />
               <div className="orbit-dot orbit-dot-4" />
             </div>
@@ -220,7 +220,7 @@ export default function ContactHero() {
                 INNER ORBIT
             ================================================= */}
 
-            <div className="orbit-inner absolute h-[190px] w-[190px] rotate-[-20deg] rounded-full border border-orange-400/20 sm:h-[240px] sm:w-[240px] lg:h-[300px] lg:w-[300px]">
+            <div className="orbit-inner absolute h-[190px] w-[190px] rotate-[-20deg] rounded-full border border-technic-orange/30 sm:h-[240px] sm:w-[240px] lg:h-[300px] lg:w-[300px]">
               <div className="orbit-dot orbit-dot-5" />
             </div>
 
@@ -239,27 +239,27 @@ export default function ContactHero() {
                 CENTRAL CORE
             ================================================= */}
 
-            <div className="central-core relative z-10 flex h-[150px] w-[150px] items-center justify-center rounded-full border border-orange-400/30 bg-[#0B1221]/90 shadow-[0_0_80px_rgba(249,115,22,0.12)] backdrop-blur-xl sm:h-[180px] sm:w-[180px]">
+            <div className="central-core relative z-10 flex h-[150px] w-[150px] items-center justify-center rounded-full border border-technic-cyan/30 bg-white shadow-tn-lg sm:h-[180px] sm:w-[180px]">
               {/* Outer pulse */}
 
-              <div className="core-ring absolute inset-[-18px] rounded-full border border-orange-500/10" />
+              <div className="core-ring absolute inset-[-18px] rounded-full border border-technic-cyan/20" />
 
-              <div className="core-ring-2 absolute inset-[-35px] rounded-full border border-purple-500/[0.06]" />
+              <div className="core-ring-2 absolute inset-[-35px] rounded-full border border-technic-orange/15" />
 
               {/* Core */}
 
-              <div className="core-center relative flex h-16 w-16 items-center justify-center rounded-full border border-orange-400/50 bg-orange-500/10">
-                <div className="h-5 w-5 rounded-full bg-orange-400 shadow-[0_0_35px_rgba(249,115,22,0.9)] animate-pulse" />
+              <div className="core-center relative flex h-16 w-16 items-center justify-center rounded-full border border-technic-orange/40 bg-technic-orange-soft">
+                <div className="h-5 w-5 rounded-full bg-technic-orange shadow-tn-sm" />
               </div>
 
               {/* Core text */}
 
               <div className="absolute -bottom-12 whitespace-nowrap text-center">
-                <p className="font-mono text-[10px] tracking-[0.3em] text-slate-400">
+                <p className="font-technical text-[10px] tracking-[0.3em] text-technic-muted">
                   YOUR IDEA
                 </p>
 
-                <p className="mt-1 text-[10px] tracking-[0.25em] text-orange-400">
+                <p className="mt-1 text-[10px] tracking-[0.25em] text-technic-orange">
                   STARTS HERE
                 </p>
               </div>
@@ -282,12 +282,12 @@ export default function ContactHero() {
               >
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-2.5 w-2.5">
-                    <span className="absolute inset-0 rounded-full bg-orange-400 opacity-40 blur-[4px]" />
+                    <span className="absolute inset-0 rounded-full bg-technic-cyan opacity-40 blur-[4px]" />
 
-                    <span className="relative h-2.5 w-2.5 rounded-full border border-orange-300/70 bg-orange-400" />
+                    <span className="relative h-2.5 w-2.5 rounded-full border border-technic-cyan bg-technic-cyan" />
                   </span>
 
-                  <span className="whitespace-nowrap text-[24px] tracking-[0.18em] text-slate-100 sm:text-[12px]">
+                  <span className="whitespace-nowrap text-[11px] tracking-[0.14em] text-technic-text sm:text-xs">
                     {service.text}
                   </span>
                 </div>
@@ -302,7 +302,7 @@ export default function ContactHero() {
       ========================================================= */}
 
       <div className="mt-25">
-        <div className="contact-bottom-bar  absolute bottom-0 left-0 right-0 z-20  hidden border-t border-white/[0.06] bg-[#0B1221]/60 backdrop-blur-xl lg:block">
+        <div className="contact-bottom-bar  absolute bottom-0 left-0 right-0 z-20  hidden border-t border-technic-border bg-white/95 backdrop-blur-xl lg:block">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-12 py-5">
             <InfoItem
               symbol="⚡"
@@ -310,7 +310,7 @@ export default function ContactHero() {
               subtitle="RESPONSE TIME"
             />
 
-            <div className="h-8 w-px bg-white/10" />
+            <div className="h-8 w-px bg-technic-border" />
 
             <InfoItem
               symbol="✉"
@@ -318,7 +318,7 @@ export default function ContactHero() {
               subtitle="START A PROJECT"
             />
 
-            <div className="h-8 w-px bg-white/10" />
+            <div className="h-8 w-px bg-technic-border" />
 
             <InfoItem
               symbol="◉"
@@ -326,7 +326,7 @@ export default function ContactHero() {
               subtitle="OUR EXPERTISE"
             />
 
-            <div className="h-8 w-px bg-white/10" />
+            <div className="h-8 w-px bg-technic-border" />
 
             <InfoItem
               symbol="✦"
@@ -453,8 +453,8 @@ export default function ContactHero() {
           width: 3px;
           height: 3px;
           border-radius: 50%;
-          background: rgba(249, 115, 22, 0.7);
-          box-shadow: 0 0 12px rgba(249, 115, 22, 0.6);
+          background: color-mix(in srgb, var(--brand-cyan) 70%, transparent);
+          box-shadow: 0 0 12px color-mix(in srgb, var(--brand-cyan) 60%, transparent);
 
           animation: particleFloat 5s ease-in-out infinite;
         }
@@ -525,8 +525,8 @@ export default function ContactHero() {
 
         .contact-cta {
           box-shadow:
-            0 0 0 rgba(249, 115, 22, 0),
-            inset 0 0 0 rgba(249, 115, 22, 0);
+            0 0 0 transparent,
+            inset 0 0 0 transparent;
 
           transition:
             box-shadow 0.3s ease,
@@ -536,8 +536,8 @@ export default function ContactHero() {
 
         .contact-cta:hover {
           box-shadow:
-            0 0 35px rgba(249, 115, 22, 0.15),
-            inset 0 0 25px rgba(249, 115, 22, 0.04);
+            0 0 35px color-mix(in srgb, var(--brand-cyan) 15%, transparent),
+            inset 0 0 25px color-mix(in srgb, var(--brand-cyan) 4%, transparent);
         }
 
         /* =======================================================
@@ -549,8 +549,8 @@ export default function ContactHero() {
           height: 7px;
           width: 7px;
           border-radius: 50%;
-          background: #fb923c;
-          box-shadow: 0 0 18px rgba(249, 115, 22, 0.9);
+          background: var(--brand-cyan);
+          box-shadow: 0 0 18px color-mix(in srgb, var(--brand-cyan) 90%, transparent);
         }
 
         .orbit-dot-1 {
@@ -566,8 +566,8 @@ export default function ContactHero() {
         .orbit-dot-3 {
           left: 8%;
           top: 18%;
-          background: #a855f7;
-          box-shadow: 0 0 18px rgba(168, 85, 247, 0.8);
+          background: var(--brand-orange);
+          box-shadow: 0 0 18px color-mix(in srgb, var(--brand-orange) 80%, transparent);
         }
 
         .orbit-dot-4 {
@@ -595,8 +595,8 @@ export default function ContactHero() {
           background: linear-gradient(
             90deg,
             transparent,
-            rgba(249, 115, 22, 0.3),
-            rgba(168, 85, 247, 0.25),
+            color-mix(in srgb, var(--brand-cyan) 30%, transparent),
+            color-mix(in srgb, var(--brand-orange) 25%, transparent),
             transparent
           );
         }
@@ -999,16 +999,16 @@ function InfoItem({
 }: InfoItemProps) {
   return (
     <div className="flex items-center gap-4">
-      <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-orange-500/100 text-lg text-orange-400">
+      <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-technic-cyan/30 text-lg text-technic-orange">
         {symbol}
       </div>
 
       <div>
-        <p className="font-mono text-[15px] tracking-[0.15em] text-slate-100">
+        <p className="font-technical text-[15px] tracking-[0.15em] text-technic-text">
           {title}
         </p>
 
-        <p className="mt-1 text-[12px] tracking-[0.12em] text-slate-400">
+        <p className="mt-1 text-[12px] tracking-[0.12em] text-technic-muted">
           {subtitle}
         </p>
       </div>

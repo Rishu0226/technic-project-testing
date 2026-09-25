@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
+/*
+  Brand colors live only in this block.
+  Tailwind utilities (bg-technic-cyan, text-technic-text, bg-brand-gradient, …)
+  read these variables, so changing a value here updates the whole site.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-cyan: #10b8d4;
+  --brand-cyan-deep: #0797b2;
+  --brand-orange: #ff8a00;
+  --brand-orange-deep: #e86f00;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --background: #f5fafc;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --success: #16a34a;
+  --error: #dc2626;
+  --cyan-soft: #e8f9fc;
+  --orange-soft: #fff3e6;
+  --success-soft: #dcfce7;
+  --error-soft: #fee2e2;
+  --neutral-soft: #f3f4f6;
+  --header: #f8fafc;
+  --brand-gradient: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-orange) 100%);
+  --focus-ring: color-mix(in srgb, var(--brand-cyan) 20%, transparent);
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-technic-cyan: var(--brand-cyan);
+  --color-technic-cyan-deep: var(--brand-cyan-deep);
+  --color-technic-orange: var(--brand-orange);
+  --color-technic-orange-deep: var(--brand-orange-deep);
+  --color-technic-text: var(--text-primary);
+  --color-technic-secondary: var(--text-secondary);
+  --color-technic-muted: var(--text-muted);
+  --color-technic-bg: var(--background);
+  --color-technic-surface: var(--surface);
+  --color-technic-border: var(--border);
+  --color-technic-success: var(--success);
+  --color-technic-error: var(--error);
+  --color-technic-cyan-soft: var(--cyan-soft);
+  --color-technic-orange-soft: var(--orange-soft);
+  --color-technic-success-soft: var(--success-soft);
+  --color-technic-error-soft: var(--error-soft);
+  --color-technic-neutral-soft: var(--neutral-soft);
+  --color-technic-header: var(--header);
+  --color-background: var(--surface);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-inter);
   --font-heading: var(--font-raleway);
   --font-technical: var(--font-roboto);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-mono: var(--font-roboto);
+  --shadow-tn-sm: 0 2px 8px rgba(31, 41, 55, 0.05);
+  --shadow-tn-md: 0 8px 24px rgba(31, 41, 55, 0.08);
+  --shadow-tn-lg: 0 15px 40px rgba(31, 41, 55, 0.1);
+  --shadow-tn-card: 0 8px 30px rgba(31, 41, 55, 0.06);
+  --background-image-brand-gradient: var(--brand-gradient);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+::selection {
+  background: var(--focus-ring);
+  color: var(--text-primary);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--brand-cyan);
+  outline-offset: 2px;
+}
+
+.tn-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  color: var(--text-primary);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.tn-input::placeholder {
+  color: var(--text-muted);
+}
+
+.tn-input:focus {
+  outline: none;
+  border-color: var(--brand-cyan);
+  box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+.tn-prose h1,
+.tn-prose h2,
+.tn-prose h3,
+.tn-prose h4 {
+  color: var(--text-primary);
+  font-family: var(--font-raleway), sans-serif;
+}
+
+.tn-prose p,
+.tn-prose li {
+  color: var(--text-secondary);
+}
+
+.tn-prose a {
+  color: var(--brand-cyan-deep);
+}
+
+.tn-prose strong {
+  color: var(--text-primary);
 }
