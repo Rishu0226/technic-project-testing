@@ -24,6 +24,23 @@ export default function SolutionsView({
   const heroImage = publicImage(solutionImages.hero);
   const impactImage = publicImage("/Assest/about2.png");
   const globalImage = publicImage(solutionImages.global);
+  const shared = solutions.find((item) => item.benefits?.some((benefit) => benefit.title)) || solutions[0];
+  const advantageItems = (shared?.benefits || []).filter((item) => item.title);
+  const processSteps = (shared?.process || []).filter((item) => item.title);
+  const whyItems = (shared?.features || []).map((item) => item.title).filter(Boolean);
+  const technologyItems = solutions.reduce<NonNullable<Solution["technologies"]>>((list, solution) => {
+    for (const item of solution.technologies || []) {
+      if (item.name && !list.some((entry) => entry.name === item.name)) list.push(item);
+    }
+    return list;
+  }, []);
+  const pageAdvantages = advantageItems.length ? advantageItems : advantages;
+  const pageProcess = processSteps.length ? processSteps : solutionProcess;
+  const pageWhy = whyItems.length ? whyItems : whyPoints;
+  const pageTechnologies = technologyItems.length ? technologyItems : solutionTechnologies;
+  const ctaTitle = shared?.cta?.title || "Have a Solution in Mind?";
+  const ctaDescription = shared?.cta?.description || "Tell us about your requirements and our team will help you find the right technology solution.";
+  const ctaButton = shared?.cta?.buttonText || "Schedule a Call";
 
   return (
     <main>
@@ -57,10 +74,10 @@ export default function SolutionsView({
 
       <section data-reveal className="bg-technic-bg py-24">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          {advantages.map((item, index) => (
+          {pageAdvantages.map((item, index) => (
             <article key={item.title} data-card className="rounded-2xl border border-technic-border bg-white p-6 shadow-tn-card transition-all duration-300 hover:-translate-y-1 hover:border-technic-cyan">
               <div className={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl ${index % 2 ? "bg-technic-orange-soft text-technic-orange" : "bg-technic-cyan-soft text-technic-cyan-deep"}`}>
-                <IconMapper name={item.icon} className="h-7 w-7" />
+                <IconMapper name={item.icon || "Layers"} className="h-7 w-7" />
               </div>
               <h2 className="font-heading text-xl font-bold text-technic-text md:text-2xl">{item.title}</h2>
               <p className="mt-2 text-base leading-relaxed text-technic-secondary">{item.description}</p>
@@ -102,7 +119,7 @@ export default function SolutionsView({
               We combine industry knowledge with modern technology to deliver solutions that fit the way a business already operates.
             </p>
             <ul className="space-y-3">
-              {whyPoints.map((point) => (
+              {pageWhy.map((point) => (
                 <li key={point} className="flex items-start gap-3 text-technic-secondary">
                   <Check className="mt-1 h-4 w-4 shrink-0 text-technic-cyan-deep" />
                   {point}
@@ -128,8 +145,8 @@ export default function SolutionsView({
           </div>
           <ol className="relative grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
             <div data-process-line className="pointer-events-none absolute left-0 right-0 top-7 hidden h-0.5 origin-left bg-technic-border lg:block" aria-hidden="true" />
-            {solutionProcess.map((step) => (
-              <li key={step.step} data-card className="relative">
+            {pageProcess.map((step) => (
+              <li key={step.step || step.title} data-card className="relative">
                 <span className="mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-technic-border bg-white font-heading text-sm font-bold text-technic-cyan-deep">{step.step}</span>
                 <h3 className="font-heading text-xl font-bold text-technic-text">{step.title}</h3>
                 <p className="mt-2 text-base leading-relaxed text-technic-secondary">{step.description}</p>
@@ -146,9 +163,9 @@ export default function SolutionsView({
             <p className="text-lg text-technic-secondary">We leverage modern and proven technologies to build robust and scalable solutions.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
-            {solutionTechnologies.map((item) => (
+            {pageTechnologies.map((item) => (
               <span key={item.name} data-card className="inline-flex items-center gap-2 rounded-2xl border border-technic-border bg-white px-4 py-3 text-sm font-medium text-technic-text shadow-tn-sm">
-                <IconMapper name={item.icon} className="h-4 w-4 text-technic-cyan-deep" />
+                <IconMapper name={item.icon || "Layers"} className="h-4 w-4 text-technic-cyan-deep" />
                 {item.name}
                 <span className="text-xs text-technic-muted">{item.category}</span>
               </span>
@@ -170,13 +187,13 @@ export default function SolutionsView({
         <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div data-copy>
             <h2 className="mb-4 font-heading text-3xl font-bold leading-tight text-technic-text md:text-5xl">
-              Have a Solution in Mind? <span className="text-technic-cyan">Let&apos;s Build It Together.</span>
+              {ctaTitle} <span className="text-technic-cyan">Let&apos;s Build It Together.</span>
             </h2>
             <p className="mb-8 text-lg leading-relaxed text-technic-secondary">
-              Tell us about your requirements and our team will help you find the right technology solution.
+              {ctaDescription}
             </p>
             <div className="space-y-4 text-technic-secondary">
-              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-brand-gradient px-8 py-4 font-semibold text-white shadow-tn-md hover:opacity-95">Schedule a Call</Link>
+              <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-brand-gradient px-8 py-4 font-semibold text-white shadow-tn-md hover:opacity-95">{ctaButton}</Link>
               {email && (
                 <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-technic-cyan-deep" /><a href={`mailto:${email}`} className="hover:text-technic-cyan-deep">{email}</a></p>
               )}
