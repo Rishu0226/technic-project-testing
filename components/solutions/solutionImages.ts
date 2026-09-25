@@ -1,13 +1,12 @@
 export const solutionImages = {
-  hero: "/assets/solutions/solutions-hero.png",
-  healthcare: "/assets/solutions/solution-healthcare.png",
-  education: "/assets/solutions/solution-education.png",
-  retail: "/assets/solutions/solution-retail.png",
-  manufacturing: "/assets/solutions/solution-manufacturing.png",
-  logistics: "/assets/solutions/solution-logistics.png",
-  finance: "/assets/solutions/solution-finance.png",
-  impact: "/assets/solutions/solutions-impact.png",
-  global: "/assets/solutions/solutions-global.png",
+  hero: "/Solution/solution.png",
+  healthcare: "/Solution/healthcare.png",
+  education: "/Solution/education.png",
+  retail: "/Solution/retail.png",
+  manufacturing: "/Solution/manufacturing.png",
+  logistics: "/Solution/logistics.png",
+  finance: "/Solution/finance.png",
+  global: "/Solution/global.png",
 };
 
 const slugImages: Record<string, string> = {

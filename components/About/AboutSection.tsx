@@ -27,9 +27,10 @@ const AboutSection: React.FC = () => {
             <div className="relative aspect-square overflow-hidden rounded-[1.75rem] border border-technic-border bg-white shadow-tn-lg">
               <Image
                 src="/Assest/about2.png"
-                alt="TechNic infrastructure and engineering workspace"
+                alt="TechNic team reviewing business solutions"
                 fill
-                className="object-cover"
+                sizes="(min-width: 1024px) 560px, 100vw"
+                className="object-contain"
               />
             </div>
           </div>

@@ -110,7 +110,7 @@ export default function SolutionsView({
               ))}
             </ul>
           </div>
-          <SolutionVisual image={impactImage} alt="Business impact of TechNic solutions" label="Business Impact" className="h-80" />
+          <SolutionVisual image={impactImage} alt="TechNic team reviewing business solutions" label="Business Impact" className="aspect-square h-auto w-full" />
         </div>
       </section>
 

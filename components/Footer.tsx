@@ -3,12 +3,12 @@ import Image from "next/image";
 import { ApiClient } from "../lib/api";
 
 export default async function Footer() {
-  let services: { title?: string }[] = [];
+  let services: { title?: string; slug?: string }[] = [];
   let products: { name?: string }[] = [];
 
   try {
     const [serviceData, productData] = await Promise.all([
-      ApiClient.get<{ title?: string }[]>("/api/services"),
+      ApiClient.get<{ title?: string; slug?: string }[]>("/api/services"),
       ApiClient.get<{ name?: string }[]>("/api/products"),
     ]);
     services = Array.isArray(serviceData) ? serviceData : [];
@@ -48,8 +48,8 @@ export default async function Footer() {
                 </li>
               ) : (
                 services.map((service) => (
-                  <li key={service.title}>
-                    <Link href="/services" className="hover:text-technic-cyan transition-colors">
+                  <li key={service.slug || service.title}>
+                    <Link href={service.slug ? `/services/${service.slug}` : "/services"} className="hover:text-technic-cyan transition-colors">
                       {service.title}
                     </Link>
                   </li>
@@ -93,10 +93,14 @@ export default async function Footer() {
                 </Link>
               </li>
               <li>
-                <span className="text-technic-muted">Privacy Policy</span>
+                <Link href="/privacy-policy" className="hover:text-technic-cyan transition-colors">
+                  Privacy Policy
+                </Link>
               </li>
               <li>
-                <span className="text-technic-muted">Terms of Service</span>
+                <Link href="/terms-of-service" className="hover:text-technic-cyan transition-colors">
+                  Terms & Conditions
+                </Link>
               </li>
             </ul>
           </div>
