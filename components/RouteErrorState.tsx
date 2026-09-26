@@ -1,15 +1,20 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function RouteErrorState({
   title,
   error,
   reset,
+  href,
+  action,
 }: {
   title: string;
   error?: Error;
   reset: () => void;
+  href?: string;
+  action?: string;
 }) {
   useEffect(() => {
     if (error) console.error(error);
@@ -25,6 +30,11 @@ export default function RouteErrorState({
       >
         Try Again
       </button>
+      {href && action && (
+        <Link href={href} className="mt-4 text-sm font-semibold text-technic-cyan-deep hover:text-technic-cyan">
+          {action}
+        </Link>
+      )}
     </main>
   );
 }

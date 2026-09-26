@@ -132,7 +132,8 @@ Focus: `:focus-visible` is a 2px cyan outline with 2px offset on links, buttons,
 | Page | What the screen is |
 | --- | --- |
 | Home | Hero with badge, two CTAs, and `HeroVisual`. Then product/service relationship, product cards, service cards, six-step process, about plus stats, contact split panel |
-| Products | Reused `Hero` (“Proprietary AI Platforms.”) and the same product cards. No product detail screen |
+| Products | Reused `Hero` (“Proprietary AI Platforms.”) and product cards with a short description and View Details |
+| Product detail | `/products/[slug]`. Breadcrumb, category, name, tagline, summary, store or website actions, hero image, then only the blocks the API filled: feature cards, showcase, rich HTML (`RichContent`), technologies, mobile screenshots, website preview, gallery, CTA, other products |
 | Services | Custom hero with `/Assest/service.png`, static capability cards, API service cards, static process, technology groups, reasons, inquiry form |
 | Service detail | Breadcrumb, hero copy plus image, then only the blocks the API filled: benefits, overview, capabilities, process, technologies, use cases, FAQ, CTA, related cards |
 | Solutions | Hero, static advantages, API industry cards with images, why section, process, technology chips, global image, inquiry split |
@@ -147,7 +148,9 @@ Focus: `:focus-visible` is a 2px cyan outline with 2px offset on links, buttons,
 
 ## Lists and cards
 
-Product card: icon well, “Product” chip, name, tagline, description, feature chips, gradient “Explore” button to `/contact`.
+Product card: icon well, type chip, name, tagline, short description, feature chips, gradient “View Details” button to `/products/[slug]`.
+
+Rich HTML from `longDescription` (and blog `content`) is rendered by `components/RichContent.tsx` inside `.tn-prose`. The same sanitizer strips scripts before display. Blog articles still pass markdown through `lib/markdown.ts`, which sanitizes the HTML it produces.
 
 Service card on the services page: order number, icon, title, short description, up to three technology chips, “Learn More” to the detail route.
 

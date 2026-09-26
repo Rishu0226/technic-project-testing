@@ -4,12 +4,12 @@ import { ApiClient } from "../lib/api";
 
 export default async function Footer() {
   let services: { title?: string; slug?: string }[] = [];
-  let products: { name?: string }[] = [];
+  let products: { name?: string; slug?: string }[] = [];
 
   try {
     const [serviceData, productData] = await Promise.all([
       ApiClient.get<{ title?: string; slug?: string }[]>("/api/services"),
-      ApiClient.get<{ name?: string }[]>("/api/products"),
+      ApiClient.get<{ name?: string; slug?: string }[]>("/api/products"),
     ]);
     services = Array.isArray(serviceData) ? serviceData : [];
     products = Array.isArray(productData) ? productData : [];
@@ -73,8 +73,8 @@ export default async function Footer() {
                 </li>
               ) : (
                 products.map((product) => (
-                  <li key={product.name}>
-                    <Link href="/products" className="hover:text-technic-cyan transition-colors">
+                  <li key={product.slug || product.name}>
+                    <Link href={product.slug ? `/products/${product.slug}` : "/products"} className="hover:text-technic-cyan transition-colors">
                       {product.name}
                     </Link>
                   </li>

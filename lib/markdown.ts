@@ -1,3 +1,5 @@
+import { sanitizeHtml } from "./html";
+
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, '&amp;')
@@ -18,7 +20,7 @@ export function markdownToHtml(markdown: string) {
   if (!source) return '';
 
   if (/<\/?[a-z][\s\S]*>/i.test(source)) {
-    return source.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '');
+    return sanitizeHtml(source);
   }
 
   const lines = source.split(/\r?\n/);
@@ -63,5 +65,5 @@ export function markdownToHtml(markdown: string) {
   }
 
   closeList();
-  return html.join('');
+  return sanitizeHtml(html.join(''));
 }

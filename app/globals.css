@@ -106,17 +106,70 @@ textarea:focus-visible {
 .tn-prose h4 {
   color: var(--text-primary);
   font-family: var(--font-raleway), sans-serif;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.tn-prose h2 { font-size: 1.75rem; }
+.tn-prose h3 { font-size: 1.35rem; }
+.tn-prose h4 { font-size: 1.125rem; }
+
+.tn-prose > * + * {
+  margin-top: 1rem;
 }
 
 .tn-prose p,
 .tn-prose li {
   color: var(--text-secondary);
+  line-height: 1.75;
 }
+
+.tn-prose ul,
+.tn-prose ol {
+  padding-left: 1.25rem;
+}
+
+.tn-prose ul { list-style: disc; }
+.tn-prose ol { list-style: decimal; }
 
 .tn-prose a {
   color: var(--brand-cyan-deep);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .tn-prose strong {
   color: var(--text-primary);
+}
+
+.tn-prose blockquote {
+  border-left: 3px solid var(--brand-cyan);
+  padding-left: 1rem;
+  color: var(--text-secondary);
+}
+
+.tn-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+.tn-prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.tn-prose th,
+.tn-prose td {
+  border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tn-prose th {
+  color: var(--text-primary);
+  background: var(--header);
 }

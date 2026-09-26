@@ -10,6 +10,7 @@ export type PublicService = {
   slug: string;
   description: string;
   shortDescription?: string;
+  longDescription?: string;
   icon?: string;
   image?: string;
   heroImage?: string;

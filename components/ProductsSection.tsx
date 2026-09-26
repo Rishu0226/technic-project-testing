@@ -2,11 +2,19 @@ import React from "react";
 import Link from "next/link";
 import { ApiClient } from "../lib/api";
 import IconMapper from "./IconMapper";
+import { productFeatures, productSummary, type PublicProduct } from "../types/product";
+
+function typeLabel(type?: PublicProduct["type"]) {
+  if (type === "app") return "App";
+  if (type === "website") return "Website";
+  if (type === "both") return "App & Website";
+  return "Product";
+}
 
 export default async function ProductsSection() {
-  let products: any[] = [];
+  let products: PublicProduct[] = [];
   try {
-    const data = await ApiClient.get<any[]>('/api/products');
+    const data = await ApiClient.get<PublicProduct[]>('/api/products');
     products = Array.isArray(data) ? data : [];
   } catch (error) {
     console.error("Failed to fetch products:", error);
@@ -38,6 +46,7 @@ export default async function ProductsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {products.map((product, idx) => {
             const orangeBadge = idx % 2 === 1;
+            const chips = productFeatures(product.features).slice(0, 4);
             return (
               <article
                 key={product._id || idx}
@@ -46,41 +55,41 @@ export default async function ProductsSection() {
                 <div className="flex items-start justify-between gap-4 mb-6">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${orangeBadge ? "bg-technic-orange-soft" : "bg-technic-cyan-soft"}`}>
                     <IconMapper
-                      name={product.icon}
+                      name={product.icon || "Layers"}
                       className={`w-7 h-7 ${orangeBadge ? "text-technic-orange" : "text-technic-cyan-deep"}`}
                     />
                   </div>
                   <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${orangeBadge ? "bg-technic-orange-soft text-technic-orange-deep" : "bg-technic-cyan-soft text-technic-cyan-deep"}`}>
-                    Product
+                    {typeLabel(product.type)}
                   </span>
                 </div>
                 <p className="text-sm font-medium text-technic-muted mb-2">{product.name}</p>
                 <h4 className="text-2xl font-bold text-technic-text mb-3 font-heading">
                   {product.tagline}
                 </h4>
-                <p className="text-technic-secondary mb-6 leading-relaxed">
-                  {product.description}
+                <p className="text-technic-secondary mb-6 leading-relaxed line-clamp-3">
+                  {productSummary(product)}
                 </p>
-                {product.features?.length > 0 && (
+                {chips.length > 0 && (
                   <div className="mb-8">
                     <p className="text-xs font-semibold tracking-wide uppercase text-technic-muted mb-3">Technology</p>
                     <div className="flex flex-wrap gap-2">
-                      {product.features.map((feature: string, fIdx: number) => (
+                      {chips.map((feature) => (
                         <span
-                          key={fIdx}
+                          key={feature.title}
                           className="px-3 py-1 rounded-full bg-technic-bg border border-technic-border text-sm text-technic-secondary"
                         >
-                          {feature}
+                          {feature.title}
                         </span>
                       ))}
                     </div>
                   </div>
                 )}
                 <Link
-                  href="/contact"
+                  href={product.slug ? `/products/${product.slug}` : "/products"}
                   className="mt-auto inline-flex items-center justify-center bg-brand-gradient text-white px-6 py-3 rounded-full font-semibold shadow-tn-sm hover:opacity-95 transition-opacity w-fit"
                 >
-                  Explore {product.name}
+                  View Details
                 </Link>
               </article>
             );

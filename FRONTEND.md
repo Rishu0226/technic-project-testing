@@ -118,7 +118,8 @@ Every page is public. There is no authentication and no role check.
 | --- | --- | --- | --- | --- | --- |
 | `/` | `app/page.tsx` | Home: hero, product/service story, products, services, process, about, contact | Public | None | `GET /api/products`, `GET /api/services`, `GET /api/settings`, `POST /api/contact` (via sections and footer) |
 | `/about` | `app/about/page.tsx` | Company journey and about section | Public | None | Footer only: `GET /api/services`, `GET /api/products` |
-| `/products` | `app/products/page.tsx` | Product hero plus product cards. Cards link to `/contact`, not a product detail page | Public | None | `GET /api/products` plus footer |
+| `/products` | `app/products/page.tsx` | Product hero plus product cards. Cards show `shortDescription` (or `description`) and link to `/products/[slug]` | Public | None | `GET /api/products` plus footer |
+| `/products/[slug]` | `app/products/[slug]/page.tsx` | Published product detail. Website, Play Store, and App Store buttons render only when `type` and the matching URL exist | Public | None | `GET /api/products/:slug`, `GET /api/products` (other products), footer |
 | `/services` | `app/services/page.tsx` | Services marketing page. Core cards come from the API | Public | None | `GET /api/services`, `POST /api/contact` (services form), footer |
 | `/services/[slug]` | `app/services/[slug]/page.tsx` | Published service detail | Public | None | `GET /api/services/:slug`, `GET /api/services` (related), footer |
 | `/solutions` | `app/solutions/page.tsx` | Industry solutions page and inquiry form | Public | None | `GET /api/solutions`, `GET /api/settings`, `POST /api/contact`, footer |

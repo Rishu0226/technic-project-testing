@@ -6,6 +6,7 @@ import { Briefcase, MapPin, Clock, ArrowLeft, CheckCircle2, BadgeIndianRupee, Aw
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import CareerApplicationForm from "../../../components/CareerApplicationForm";
+import RichContent from "../../../components/RichContent";
 import { ApiClient } from "../../../lib/api";
 
 export const dynamic = "force-dynamic";
@@ -27,10 +28,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   return {
     title: `${job.title} - Careers | Technic Technologies`,
-    description: job.description?.substring(0, 160),
+    description: (job.shortDescription || job.description || "").substring(0, 160),
     openGraph: {
       title: `${job.title} | Technic Technologies`,
-      description: job.description?.substring(0, 160),
+      description: (job.shortDescription || job.description || "").substring(0, 160),
       type: "website",
     },
   };
@@ -97,7 +98,12 @@ export default async function CareerDetailPage({ params }: { params: { slug: str
 
             <div className="tn-prose max-w-none">
               <h2 className="text-2xl font-semibold mb-4 text-technic-text">About the Role</h2>
-              <p className="text-lg leading-relaxed mb-10 text-technic-secondary">{job.description}</p>
+              {job.shortDescription && <p className="text-lg leading-relaxed mb-6 text-technic-secondary">{job.shortDescription}</p>}
+              {job.longDescription ? (
+                <div className="mb-10"><RichContent html={job.longDescription} /></div>
+              ) : (
+                <p className="text-lg leading-relaxed mb-10 text-technic-secondary">{job.description}</p>
+              )}
 
               <div className="grid md:grid-cols-2 gap-10">
                 <div>

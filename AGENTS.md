@@ -161,7 +161,7 @@ Public routes only. There is no middleware and no auth.
 | Path | Notes |
 | --- | --- |
 | `/` | Home sections |
-| `/products` | Product cards. No product detail route. CTAs go to `/contact` |
+| `/products`, `/products/[slug]` | Product cards link to the published detail page. Store and website buttons use the saved URLs |
 | `/services`, `/services/[slug]` | Catalog and published detail |
 | `/solutions`, `/solutions/[slug]` | Catalog and published detail |
 | `/about` | Journey + about section |

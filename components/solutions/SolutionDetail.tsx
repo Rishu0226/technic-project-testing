@@ -10,6 +10,7 @@ import { cardImageFor } from "./solutionImages";
 import { publicImage } from "../../lib/publicImage";
 import { solutionProcess } from "./solutionsContent";
 import type { Solution } from "../../types/solution";
+import RichContent from "../RichContent";
 
 export default function SolutionDetail({ solution, related }: { solution: Solution; related: Solution[] }) {
   const hero = publicImage(solution.heroImage) || publicImage(cardImageFor(solution.slug));
@@ -77,6 +78,14 @@ export default function SolutionDetail({ solution, related }: { solution: Soluti
               <SolutionVisual image={publicImage(solution.overviewImage) || hero} alt={solution.overview?.title || solution.title} label="Overview" className="h-72" />
             </div>
           </section>
+
+          {solution.longDescription && (
+            <section className="bg-technic-bg py-20">
+              <div className="mx-auto max-w-3xl px-4 lg:px-8">
+                <RichContent html={solution.longDescription} />
+              </div>
+            </section>
+          )}
 
           {features.length > 0 && (
             <section data-reveal className="bg-technic-bg py-24">

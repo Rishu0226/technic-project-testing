@@ -6,6 +6,7 @@ import Footer from "../Footer";
 import IconMapper from "../IconMapper";
 import ServiceFaqs from "./ServiceFaqs";
 import ServicesMotion from "./ServicesMotion";
+import RichContent from "../RichContent";
 import { defaultProcess, type PublicService } from "../../lib/service";
 
 export default function ServiceDetail({
@@ -181,6 +182,14 @@ export default function ServiceDetail({
                   </article>
                 ))}
               </div>
+            </div>
+          </section>
+        )}
+
+        {service.longDescription && (
+          <section className="bg-white py-20">
+            <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+              <RichContent html={service.longDescription} />
             </div>
           </section>
         )}

@@ -50,6 +50,7 @@ export type Solution = {
   title: string;
   slug: string;
   shortDescription?: string;
+  longDescription?: string;
   description: string;
   icon?: string;
   industry?: string;
