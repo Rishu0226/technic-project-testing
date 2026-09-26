@@ -130,3 +130,164 @@ Keep visible focus, real button text, labels on inputs, and alt text on images.
 - Logo: `/Assest/logo-brand.png`
 - New images that do not exist yet need a placeholder until the asset from `PROMPT_TEMPLATES.md` is added.
 <!-- END:project-design-rules -->
+
+<!-- BEGIN:project-implementation-rules -->
+# Technic Technologies — Public site implementation
+
+`FRONTEND.md` is the inventory of routes, APIs, forms, and flows. `DESIGN.md` is the visual system. Follow both. The source code wins when an older note (`PROJECT_DOCUMENTATION.md`, `PROJECT_DEEP_ANALYSIS.md`, `CONTACT_FORM_SETUP_PLAN.md`) disagrees.
+
+This app is the public marketing site in `technic-technologies`. It is not the admin app and it is not the backend.
+
+## Stack
+
+- Next.js 16 App Router, React 19, TypeScript.
+- Tailwind CSS v4. Tokens live only in `app/globals.css`.
+- No Redux, Zustand, React Query, React Hook Form, Zod, toast library, or modal library.
+- HTTP goes through `lib/api.ts` (`ApiClient`) or `fetch` against `API_BASE_URL`.
+- Dev and start scripts use port `3005`.
+
+## Folder conventions
+
+- Routes belong in `app/`. Each page renders `Navbar`, a `main` (or equivalent), and `Footer`. The root layout does not render them.
+- Shared UI belongs in `components/`, grouped by feature (`Services`, `solutions`, `About`, `Contact`, `legal`).
+- API access, types used by fetchers, and small helpers belong in `lib/`. Solution types live in `types/solution.ts`.
+- Navigation labels live in `lib/data.tsx` (`navItems`). Do not put product or service catalogs back into that file.
+- Static marketing copy that is not from the API stays next to its feature (`servicesData.ts`, `solutionsContent.ts`, `legalContent.ts`).
+
+## Routing
+
+Public routes only. There is no middleware and no auth.
+
+| Path | Notes |
+| --- | --- |
+| `/` | Home sections |
+| `/products` | Product cards. No product detail route. CTAs go to `/contact` |
+| `/services`, `/services/[slug]` | Catalog and published detail |
+| `/solutions`, `/solutions/[slug]` | Catalog and published detail |
+| `/about` | Journey + about section |
+| `/blog`, `/blog/[slug]` | Insights |
+| `/career`, `/career/[slug]` | Jobs and application |
+| `/contact` | Contact hero + form |
+| `/privacy-policy`, `/terms-of-service` | Static legal copy |
+
+Detail helpers in `lib/getService.ts` and `lib/getSolution.ts` treat HTTP 404 and `status === "Draft"` as not found. Do not show drafts on those pages.
+
+`app/sitemap.ts` is incomplete relative to the routes above. If you add a public page, add it to the sitemap and the navbar or footer when the design includes it.
+
+## API conventions
+
+- Base URL: `NEXT_PUBLIC_API_URL`, default `http://localhost:3001`.
+- Calls are public. Do not add an `Authorization` header unless the product gains auth.
+- Keep `cache: "no-store"`. The root layout is `force-dynamic`.
+- `ApiClient` always sends JSON. Do not use it for binary uploads.
+- Used endpoints, and only these, unless the backend contract changes and the UI is updated together:
+  - `GET /api/services`, `GET /api/services/:slug`
+  - `GET /api/products`
+  - `GET /api/solutions`, `GET /api/solutions/:slug`
+  - `GET /api/settings`
+  - `GET /api/blogs`, `GET /api/blogs/:slug`
+  - `GET /api/careers`, `GET /api/careers/:slug`
+  - `POST /api/contact`
+  - `POST /api/careers/:slug/applications`
+- `ApiClient.put` and `ApiClient.delete` are unused. Do not call them for new UI without a real backend route.
+- Contact POST bodies use `firstName`, `lastName`, `email`, `phone`, `interest`, `message`. The services and solutions forms split a full name and prefix the message with the company. Do not rename those keys casually.
+- Read errors as `data.error`, then `data.message`, then status text. Show that string in an inline `role="alert"`. There is no toast.
+
+## State
+
+- Server Components fetch catalogs.
+- Client state is `useState` for the navbar, forms (`idle | submitting | success | error`), the FAQ index, and the legal sidebar.
+- Do not introduce a global store for this site.
+- Do not persist form data or session data in `localStorage`.
+
+## Forms
+
+- Native forms and `FormData`. No schema library.
+- Required fields use the `required` attribute. Errors and success use the existing soft red and soft green styles.
+- Disable the submit button while `submitting`, and ignore a second submit.
+- On success, reset the form and show the API `message` when present.
+- Job application fields come from `job.applicationFields`. Hide `active === false`. A file input is not a working upload: the body is JSON.
+
+## UI states
+
+- Services and solutions list failures have visible copy and a way to try again. Keep that. Do not collapse an error into an empty grid on those pages.
+- Careers already distinguish load failure from an empty list. Keep that distinction.
+- Blog list currently shows the empty copy for both an empty array and a failed fetch. Do not make that worse.
+- Missing or draft service/solution slugs use the existing `not-found` pages.
+- Service and solution detail routes already have `loading.tsx` skeletons and `error.tsx` retry buttons.
+
+## Components and naming
+
+- Match the surrounding file’s component style. The app mixes `function` declarations and `React.FC`. Do not rewrite unrelated files for style.
+- Path alias `@/*` exists. Most imports are relative. Stay consistent with the file you are editing.
+- Map API icon strings through `IconMapper`. Add new names there when the API starts sending them.
+- `next/image` may load only local files plus the hosts in `next.config.ts` (`res.cloudinary.com`, `www.transparenttextures.com`). Blog images use `<img>` on purpose.
+
+## Reuse existing UI
+
+Search `components/` and `lib/` before adding a file. This site has no shared `Button`, `Input`, `Select`, `Modal`, `Dialog`, `Drawer`, `DataTable`, pagination, toast, or form-field component. Do not add that layer, and do not install a library for it.
+
+Use this order: existing component, then different props, then an optional prop on that component, then a feature component that composes the pieces below. Add a new shared component only when none of those can cover the behavior.
+
+| Need | Reuse |
+| --- | --- |
+| Page chrome | `Navbar`, `Footer`, and the page shell in `DESIGN.md` |
+| Marketing hero | `components/Hero.tsx` (`badgeText`, `title`, description, actions) |
+| Cards, chips, icon wells | The classes in `DESIGN.md`. Do not add a `Card` component for one screen |
+| Buttons and links | The primary and secondary class strings in `DESIGN.md`. Full-width `rounded-2xl` submits stay on the existing contact and career forms only |
+| Fields | `tn-input`, a `text-sm font-medium text-technic-text` label, and a native `input`, `select`, or `textarea` |
+| Inquiry form | `components/InquiryForm.tsx` through `ServicesContact` or `SolutionsContact`. Payload helper is `lib/inquiryContact.ts`. Do not copy the name split, company prefix, or `/api/contact` post |
+| Main contact or job application | `ContactSection` or `CareerApplicationForm`. Same status values: `idle \| submitting \| success \| error`. Native `<form>` and `FormData`. Disable submit while `submitting`. Errors use `role="alert"`. Success uses `role="status"` |
+| FAQ | `ServiceFaqs` |
+| Legal page | `LegalLayout`, `LegalBreadcrumb`, `LegalSidebar`, `LegalSection` |
+| API icons | `IconMapper` |
+| HTTP | `lib/api.ts` (`ApiClient`). Error text stays `data.error`, then `data.message`, then status text |
+| Catalog fetch failure | `CatalogLoadError` |
+| Detail route error | `RouteErrorState` inside the route `error.tsx` |
+| Missing service, solution, article, or job | `DetailNotFound` inside that route’s `not-found.tsx` |
+| Unknown address | `app/not-found.tsx` (`DetailNotFound`) |
+| Named page that is not built yet | `ComingSoon` |
+| Detail loading | `DetailLoading` inside the route `loading.tsx` |
+| Other empty states | The careers and blog messages already on those pages |
+
+A feature file under `components/` is appropriate when the screen has its own content. Inside it, reuse the rows above. Do not copy `ApiClient`, contact field names (`firstName`, `lastName`, `email`, `phone`, `interest`, `message`), or the success and error panels into a second helper.
+
+Before changing `Navbar`, `Footer`, `Hero`, `IconMapper`, `ApiClient`, or `tn-input`, check current callers. New props stay optional and keep the current defaults.
+
+```tsx
+<label className="text-sm font-medium text-technic-text">Email</label>
+<input name="email" type="email" required className="tn-input mt-2" />
+<button
+  type="submit"
+  disabled={status === "submitting"}
+  className="inline-flex items-center justify-center bg-brand-gradient text-white font-semibold rounded-full px-8 py-4 shadow-tn-md hover:opacity-95 disabled:opacity-60"
+>
+```
+
+Do not add `PrimaryButton`, `UserForm`, `ConfirmModal`, `DataTable`, or another API client for a single page.
+
+## Responsive
+
+- Desktop nav starts at `lg`. Below that, the hamburger panel is the navigation.
+- Content width is `max-w-7xl` with `px-4 sm:px-6 lg:px-8`.
+- Clear the fixed navbar (`pt-32` on standard pages).
+- Check layout at 375, 768, and 1280.
+
+## Business rules that must not break
+
+- The site stays public. Do not add login walls to marketing pages.
+- Do not render a service or solution whose detail payload is `Draft`.
+- Product cards do not have detail URLs. Their actions go to `/contact`.
+- Footer product links go to `/products`. Footer service links go to `/services/[slug]` when a slug exists.
+- Privacy copy in `components/legal/legalContent.ts` is marked as a draft. Do not present it as approved legal policy.
+- Company stats on the about section are static marketing figures, not API data.
+- `RESEND_API_KEY` and `CONTACT_EMAIL` are not read by this frontend. Inquiries go to `POST /api/contact` on the backend.
+
+## Do not break
+
+- `app/globals.css` token names and the `tn-input` / `tn-prose` classes.
+- `lib/api.ts` error message order.
+- Contact and application success/error regions (`role="status"` / `role="alert"`).
+- Reduced-motion early returns in the GSAP wrappers.
+- Canonical metadata that uses `NEXT_PUBLIC_SITE_URL` on service, solution, and legal pages.
+<!-- END:project-implementation-rules -->

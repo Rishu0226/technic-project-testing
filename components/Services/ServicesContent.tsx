@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import CompanyStats from "../About/CompanyStats";
+import Hero from "../Hero";
+import CatalogLoadError from "../CatalogLoadError";
 import ServicesContact from "./ServicesContact";
 import IconMapper from "../IconMapper";
 import type { PublicService } from "../../lib/service";
@@ -24,45 +26,25 @@ export default function ServicesContent({
 }) {
   return (
     <main>
-      <section className="relative overflow-hidden bg-white pt-32 pb-16 md:pt-40 md:pb-24">
-        <div className="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-technic-cyan/10 blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute -right-16 bottom-0 h-72 w-72 rounded-full bg-technic-orange/10 blur-3xl" aria-hidden="true" />
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 lg:flex-row lg:gap-16 lg:px-8">
-          <div className="max-w-2xl text-center lg:w-1/2 lg:text-left">
-            <p data-hero className="mb-6 inline-flex items-center gap-2 rounded-full border border-technic-cyan/20 bg-technic-cyan-soft px-5 py-2 text-xs font-semibold tracking-[0.14em] text-technic-cyan-deep sm:text-sm">
-              <span className="h-2 w-2 rounded-full bg-technic-cyan" />
-              TECHNOLOGY • ENGINEERING • INNOVATION
-            </p>
-            <h1 data-hero className="mb-6 font-heading text-4xl font-extrabold leading-tight tracking-tight text-technic-text sm:text-5xl md:text-6xl">
-              Technology Services Built for{" "}
-              <span className="text-technic-cyan">Real-World</span>{" "}
-              <span className="text-technic-orange">Business</span>
-            </h1>
-            <p data-hero className="mb-10 text-lg leading-relaxed text-technic-secondary md:text-xl">
-              We design, build, and scale digital products that help businesses move faster, operate smarter, and create lasting value through technology.
-            </p>
-            <div data-hero className="flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
-              <a href="#services" className="inline-flex w-full items-center justify-center rounded-full bg-brand-gradient px-8 py-4 font-semibold text-white shadow-tn-md hover:opacity-95 sm:w-auto">
-                Explore Our Services
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-              <a href="#contact" className="inline-flex w-full items-center justify-center rounded-full border border-technic-border bg-white px-8 py-4 font-semibold text-technic-text hover:border-technic-cyan hover:text-technic-cyan-deep sm:w-auto">
-                Talk to Our Team
-              </a>
-            </div>
-          </div>
-          <div data-hero-visual className="w-full lg:w-1/2">
-            <Image
-              src="/Assest/service.png"
-              alt="TechNic platform connecting cloud, web, mobile, data, AI, and security"
-              width={1200}
-              height={800}
-              priority
-              className="h-auto w-full"
-            />
-          </div>
-        </div>
-      </section>
+      <Hero
+        badgeText="TECHNOLOGY • ENGINEERING • INNOVATION"
+        title={
+          <>
+            Technology Services Built for{" "}
+            <span className="text-technic-cyan">Real-World</span>{" "}
+            <span className="text-technic-orange">Business</span>
+          </>
+        }
+        description="We design, build, and scale digital products that help businesses move faster, operate smarter, and create lasting value through technology."
+        primaryActionText="Explore Our Services"
+        primaryActionHref="#services"
+        secondaryActionText="Talk to Our Team"
+        secondaryActionHref="#contact"
+        sideImage="/Assest/service.png"
+        sideImageAlt="TechNic platform connecting cloud, web, mobile, data, AI, and security"
+        sideImageWidth={1200}
+        sideImageHeight={800}
+      />
 
       <section data-reveal className="bg-technic-bg py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -104,10 +86,7 @@ export default function ServicesContent({
             </p>
           </div>
           {loadFailed ? (
-            <div className="rounded-2xl border border-technic-border bg-white px-6 py-10 text-center shadow-tn-card">
-              <p className="text-lg text-technic-text">Unable to load services.</p>
-              <a href="/services" className="mt-6 inline-flex rounded-full bg-brand-gradient px-8 py-3 font-semibold text-white">Try Again</a>
-            </div>
+            <CatalogLoadError message="Unable to load services." href="/services" />
           ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {services.map((service, index) => {

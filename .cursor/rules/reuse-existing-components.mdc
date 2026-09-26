@@ -1,0 +1,42 @@
+---
+description: Reuse existing public-site UI before creating components
+globs: "**/*.{tsx,ts,css}"
+alwaysApply: false
+---
+
+# Reuse existing UI
+
+`FRONTEND.md` is routes and APIs. `DESIGN.md` is visual tokens. `AGENTS.md` is the coding rules. Search `components/` and `lib/` before adding a file.
+
+This site has no shared `Button`, `Input`, `Select`, `Modal`, `Dialog`, `Drawer`, `DataTable`, pagination, toast, or form-field component. Do not add that layer or a library for it.
+
+Order: existing component → different props → optional prop on that component → feature component that composes the pieces below. A new shared component is allowed only when none of those cover the behavior.
+
+| Need | Reuse |
+| --- | --- |
+| Page chrome | `Navbar`, `Footer`, page shell in `DESIGN.md` |
+| Marketing hero | `components/Hero.tsx` |
+| Cards, chips, icon wells | Classes in `DESIGN.md`, not a new `Card` |
+| Buttons and links | Primary and secondary class strings in `DESIGN.md` |
+| Fields | `tn-input`, `text-sm font-medium text-technic-text` labels, native `input` / `select` / `textarea` |
+| Inquiry form | `InquiryForm` via `ServicesContact` or `SolutionsContact`. Payload helper: `lib/inquiryContact.ts` |
+| Other forms | `ContactSection`, `CareerApplicationForm`. Status `idle \| submitting \| success \| error`. Native form + `FormData`. `role="alert"` / `role="status"` |
+| FAQ | `ServiceFaqs` |
+| Legal page | `LegalLayout`, `LegalBreadcrumb`, `LegalSidebar`, `LegalSection` |
+| Icons | `IconMapper` |
+| HTTP | `lib/api.ts` only. Errors: `data.error`, then `data.message`, then status text |
+| Catalog fetch failure | `CatalogLoadError` |
+| Detail route error | `RouteErrorState` |
+| Missing detail | `DetailNotFound` |
+| Unknown address | `app/not-found.tsx` |
+| Unbuilt page | `ComingSoon` |
+| Detail loading | `DetailLoading` |
+
+Feature files under `components/` are fine. Do not duplicate `ApiClient`, contact body keys, or success/error panels. Shared edits (`Navbar`, `Footer`, `Hero`, `IconMapper`, `ApiClient`, `tn-input`) stay backward compatible: optional props, same defaults, check every caller.
+
+```tsx
+<input name="email" type="email" required className="tn-input mt-2" />
+<button type="submit" disabled={status === "submitting"} className="inline-flex items-center justify-center bg-brand-gradient text-white font-semibold rounded-full px-8 py-4 shadow-tn-md hover:opacity-95 disabled:opacity-60">
+```
+
+Do not add `PrimaryButton`, `UserForm`, `ConfirmModal`, `DataTable`, or a second API client.

@@ -14,7 +14,10 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-technic-secondary scroll-smooth">
       <Navbar />
-      <Hero />
+      <Hero
+        sideImage="/Home/homepagehero.png"
+        sideImageAlt="TechNic dashboard showing business growth, 120+ projects, 98+ active clients, and a 99% success rate"
+      />
       <ProductServicesRelationship />
       <ProductsSection />
       <ServicesSection />

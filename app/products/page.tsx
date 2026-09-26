@@ -27,6 +27,10 @@ export default function ProductsPage() {
         primaryActionHref="/contact"
         secondaryActionText="Explore Products"
         secondaryActionHref="#products"
+        sideImage="/Products/producthero.png"
+        sideImageAlt="TechNic platform connecting cloud, web, mobile, data, AI, and security"
+        sideImageWidth={1200}
+        sideImageHeight={800}
       />
       <ProductsSection />
       <Footer />

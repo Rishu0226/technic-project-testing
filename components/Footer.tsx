@@ -18,8 +18,12 @@ export default async function Footer() {
   }
 
   return (
-    <footer className="bg-technic-bg text-technic-secondary py-16 border-t border-technic-border relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="relative z-10 overflow-hidden border-t border-technic-border bg-technic-bg py-16 text-technic-secondary">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[url('/Home/footerbanner.png')] bg-cover bg-center bg-no-repeat opacity-50"
+      />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="inline-flex items-center mb-6" aria-label="Technic Technologies home">

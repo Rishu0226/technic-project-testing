@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, Check, Mail, Phone } from "lucide-react";
+import { Check, Mail, Phone } from "lucide-react";
 import IconMapper from "../IconMapper";
 import IndustrySolutionCard from "./IndustrySolutionCard";
 import SolutionVisual from "./SolutionVisual";
+import CatalogLoadError from "../CatalogLoadError";
+import Hero from "../Hero";
 import SolutionsContact from "./SolutionsContact";
 import { advantages, solutionProcess, solutionTechnologies, whyPoints } from "./solutionsContent";
 import CompanyStats from "../About/CompanyStats";
@@ -44,33 +46,30 @@ export default function SolutionsView({
 
   return (
     <main>
-      <section className="bg-white pt-32 pb-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div>
-            <p data-hero className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-technic-cyan-deep">Solutions</p>
-            <h1 data-hero className="mb-6 font-heading text-4xl font-extrabold leading-tight text-technic-text sm:text-5xl md:text-6xl">
-              Business Solutions for a Smarter{" "}
-              <span className="text-technic-cyan">Digital</span>{" "}
-              <span className="text-technic-orange">Future</span>
-            </h1>
-            <p data-hero className="mb-8 max-w-xl text-lg leading-relaxed text-technic-secondary">
-              Technology solutions designed around real business challenges, helping organizations automate operations, improve efficiency, and achieve sustainable growth.
-            </p>
-            <div data-hero className="flex flex-col gap-4 sm:flex-row">
-              <a href="#industries" className="inline-flex items-center justify-center rounded-full bg-brand-gradient px-8 py-4 font-semibold text-white shadow-tn-md hover:opacity-95">
-                Explore Solutions
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-              <a href="#contact" className="inline-flex items-center justify-center rounded-full border border-technic-border bg-white px-8 py-4 font-semibold text-technic-text hover:border-technic-cyan hover:text-technic-cyan-deep">
-                Talk to Our Experts
-              </a>
-            </div>
-          </div>
-          <div data-hero-visual>
-            <SolutionVisual image={heroImage} alt="TechNic business solutions" label="Smart Solutions" priority className="h-80 md:h-[420px]" />
-          </div>
-        </div>
-      </section>
+      <Hero
+        badgeText="SOLUTIONS • INDUSTRY • GROWTH"
+        title={
+          <>
+            Business Solutions for a Smarter{" "}
+            <span className="text-technic-cyan">Digital</span>{" "}
+            <span className="text-technic-orange">Future</span>
+          </>
+        }
+        description="Technology solutions designed around real business challenges, helping organizations automate operations, improve efficiency, and achieve sustainable growth."
+        primaryActionText="Explore Solutions"
+        primaryActionHref="#industries"
+        secondaryActionText="Talk to Our Experts"
+        secondaryActionHref="#contact"
+        side={
+          <SolutionVisual
+            image={heroImage}
+            alt="TechNic business solutions"
+            label="Smart Solutions"
+            priority
+            className="h-80 w-full md:h-[420px]"
+          />
+        }
+      />
 
       <section data-reveal className="bg-technic-bg py-24">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
@@ -94,10 +93,7 @@ export default function SolutionsView({
             <p className="text-lg leading-relaxed text-technic-secondary">From startups to enterprises, we build solutions that solve real-world business challenges.</p>
           </div>
           {loadFailed ? (
-            <div className="rounded-2xl border border-technic-border bg-white px-6 py-10 text-center">
-              <p className="text-lg text-technic-text">Unable to load solutions.</p>
-              <a href="/solutions" className="mt-6 inline-flex items-center justify-center rounded-full bg-brand-gradient px-8 py-4 font-semibold text-white shadow-tn-md hover:opacity-95">Try Again</a>
-            </div>
+            <CatalogLoadError message="Unable to load solutions." href="/solutions" />
           ) : (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {solutions.map((solution, index) => (

@@ -26,10 +26,14 @@ const Navbar: React.FC = () => {
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
+  const heroBehindNav = !isScrolled && (pathname === "/" || pathname === "/products" || pathname === "/services" || pathname === "/solutions");
+
   return (
     <nav
-      className={`fixed w-full z-50 border-b border-technic-border bg-white transition-shadow duration-300 ${
-        isScrolled ? "py-3 shadow-tn-sm" : "py-4"
+      className={`fixed w-full z-50 border-b transition-[padding,box-shadow] duration-300 ${
+        heroBehindNav
+          ? "border-transparent bg-transparent py-4"
+          : "border-technic-border/70 bg-[url('/Home/background.png')] bg-cover bg-top bg-no-repeat py-3 shadow-tn-sm"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

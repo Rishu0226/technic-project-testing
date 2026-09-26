@@ -90,7 +90,7 @@ export default function ContactHero() {
               LEFT CONTENT
           ===================================================== */}
 
-          <div className="contact-hero-content relative z-20 max-w-3xl">
+          <div className="contact-hero-content relative mt-5 z-20 max-w-3xl">
             {/* Label */}
 
             <div className="contact-hero-label mb-7 flex items-center gap-4">
