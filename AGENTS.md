@@ -177,12 +177,12 @@ Detail helpers in `lib/getService.ts` and `lib/getSolution.ts` treat HTTP 404 an
 ## API conventions
 
 - Base URL: `NEXT_PUBLIC_API_URL`, default `http://localhost:3001`.
-- Calls are public. Do not add an `Authorization` header unless the product gains auth.
+- Calls are public. `lib/api.ts` must not send `Authorization`. Drafts are not returned by these routes. Admin edits use the admin app and `/api/admin/*`.
 - Keep `cache: "no-store"`. The root layout is `force-dynamic`.
 - `ApiClient` always sends JSON. Do not use it for binary uploads.
 - Used endpoints, and only these, unless the backend contract changes and the UI is updated together:
   - `GET /api/services`, `GET /api/services/:slug`
-  - `GET /api/products`
+  - `GET /api/products`, `GET /api/products/:slug`
   - `GET /api/solutions`, `GET /api/solutions/:slug`
   - `GET /api/settings`
   - `GET /api/blogs`, `GET /api/blogs/:slug`

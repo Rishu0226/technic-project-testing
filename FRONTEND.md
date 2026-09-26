@@ -363,7 +363,7 @@ If a field `type` is `file`, an `<input type="file">` is rendered, but the clien
 
 Base URL: `process.env.NEXT_PUBLIC_API_URL` or `http://localhost:3001`.
 
-Every call is unauthenticated. `ApiClient` sets `Content-Type: application/json` and `cache: "no-store"`. Direct `fetch` calls set `cache: "no-store"` and no custom auth header.
+Every call is a public read or a public form submission. `lib/api.ts` does not send an admin token. These routes return published records only. The site does not call `/api/admin/*`. `ApiClient` sets `Content-Type: application/json` and `cache: "no-store"`. Direct `fetch` calls set `cache: "no-store"` and no `Authorization` header.
 
 `ApiClient.put` and `ApiClient.delete` exist and are not called anywhere.
 
