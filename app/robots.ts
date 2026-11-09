@@ -1,13 +1,14 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next';
+
+const BASE_URL = 'https://www.technictechnologies.tech';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://technic.dev'
-  
   return {
     rules: {
       userAgent: '*',
       allow: '/',
+      disallow: ['/api/', '/coming-soon'],
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
-  }
+    sitemap: `${BASE_URL}/sitemap.xml`,
+  };
 }
